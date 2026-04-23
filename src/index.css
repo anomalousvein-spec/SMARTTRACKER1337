@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-theme-bg-primary: var(--bg-primary);
+  --color-theme-bg-secondary: var(--bg-secondary);
+  --color-theme-bg-tertiary: var(--bg-tertiary);
+
+  --color-theme-text-primary: var(--text-primary);
+  --color-theme-text-secondary: var(--text-secondary);
+  --color-theme-text-tertiary: var(--text-tertiary);
+
+  --color-theme-accent: var(--accent);
+  --color-theme-accent-variant: var(--accent-variant);
+}
+
+@layer base {
+  :root {
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+
+    --bg-primary: #121212;
+    --bg-secondary: #1E1E1E;
+    --bg-tertiary: #2D2D2D;
+    --text-primary: #F5F5F5;
+    --text-secondary: #BBBBBB;
+    --text-tertiary: #888888;
+    --accent: #4D9EFF;
+    --accent-variant: #3700B3;
+
+    --glass-bg: rgba(30, 30, 30, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-blur: 24px;
+  }
+
+  :root[data-theme="jewel"] {
+    --bg-primary: #080C10;
+    --bg-secondary: #0E1621;
+    --bg-tertiary: #1B2B3D;
+    --text-primary: #FFFFFF;
+    --text-secondary: #E1EEFB;
+    --text-tertiary: #5C7A99;
+    --accent: #00D1A0;
+    --accent-variant: #E66BBF;
+
+    --glass-bg: rgba(14, 22, 33, 0.75);
+  }
+
+  :root[data-theme="amoled"] {
+    --bg-primary: #000000;
+    --bg-secondary: #111111;
+    --bg-tertiary: #1C1C1C;
+    --text-primary: #FFFFFF;
+    --text-secondary: #D1D1D1;
+    --text-tertiary: #8E8E8E;
+    --accent: #4D9EFF;
+    --accent-variant: #1E3A8A;
+
+    --glass-bg: rgba(13, 13, 13, 0.8);
+  }
+
+  body {
+    @apply antialiased overflow-x-hidden;
+    min-height: 100dvh;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+    -webkit-touch-callout: none;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+    height: 100%;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button,
+  [role="button"],
+  a {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  html[data-display-mode="standalone"] body {
+    user-select: none;
+  }
+
+  html[data-display-mode="standalone"] input,
+  html[data-display-mode="standalone"] textarea,
+  html[data-display-mode="standalone"] select {
+    user-select: text;
+  }
+
+  html[data-display-mode="standalone"] #root {
+    isolation: isolate;
+  }
+}
+
+@utility glass {
+  background: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
+}
+
+@utility card {
+  background: var(--bg-secondary);
+  @apply rounded-3xl transition-all duration-200 border border-white/10;
+}
+
+@utility card-hover {
+  @apply hover:bg-white/[0.02] active:scale-[0.98] transition-all duration-200;
+}
+
+@utility glass-morphism {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility nav-link-active {
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    right: 16px;
+    width: 4px;
+    height: 4px;
+    background-color: var(--accent);
+    border-radius: 9999px;
+
+  }
+}
+
+/* Custom Slider Styling */
+input[type='range'] {
+  @apply h-2 rounded-full appearance-none cursor-pointer;
+  background: var(--bg-tertiary);
+  accent-color: var(--accent);
+}
+
+input[type='range']::-webkit-slider-thumb {
+  @apply appearance-none w-6 h-6 rounded-full  border-4 transition-transform active:scale-125;
+  background: var(--accent);
+  border-color: var(--bg-primary);
+}
+
+/* Global transitions for themeable properties */
+* {
+  border-color: var(--glass-border);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  @apply rounded-full transition-colors;
+}
