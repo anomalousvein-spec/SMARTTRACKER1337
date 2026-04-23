@@ -54,9 +54,10 @@ export async function getGlobalCoachState(): Promise<GlobalCoachState> {
 }
 
 export async function getAllExerciseCoachStates(): Promise<ExerciseCoachState[]> {
-  const records = await db.coachStates
-    .filter((entry): entry is ExerciseCoachState => entry.id !== GLOBAL_COACH_STATE_ID)
-    .toArray();
+  const allRecords = await db.coachStates.toArray();
+  const records = allRecords.filter(
+    (entry): entry is ExerciseCoachState => entry.id !== GLOBAL_COACH_STATE_ID
+  );
 
   return records.sort((a, b) => {
     const scoreA = a.painPenalty + a.swapPreference + Math.abs(a.confidenceBias) + Math.abs(a.toleranceBias);

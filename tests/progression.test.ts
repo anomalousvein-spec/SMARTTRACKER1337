@@ -113,7 +113,7 @@ describe('Progression Engine', () => {
     await db.sessions.add(withExerciseIndex(session, ['bench press']));
 
     // Pass low sleep readiness
-    const suggestion = await calculateNextSuggestion('bench press', undefined, { sleep: 5, energy: 8 });
+    const suggestion = await calculateNextSuggestion('bench press', undefined, { sleep: 5, energy: 8, soreness: 2 });
     expect(suggestion.suggestedSets).toBeLessThanOrEqual(2);
     expect(suggestion.reason).toContain('Low sleep or energy');
     expect(suggestion.suggestedRPE).toBeDefined();
