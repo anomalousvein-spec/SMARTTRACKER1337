@@ -138,6 +138,12 @@ export async function calculateNextSuggestion(
         suggestedSets: BASELINE_SETS,
         reason: 'Insufficient history data',
         plateauFlag: false,
+        primaryMuscle,
+        currentWeeklySets: 0,
+        projectedWeeklySets: 0,
+        caps,
+        allTimeBestWeight: 0,
+        allTimeBestE1RM: 0,
       };
     }
     
