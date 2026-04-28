@@ -1,4 +1,4 @@
-import { ExperienceLevel } from '../db/models';
+import type { ExperienceLevel } from '../db/models';
 
 export const BASELINE_SETS = 3;
 export const BASELINE_REPS = 8;

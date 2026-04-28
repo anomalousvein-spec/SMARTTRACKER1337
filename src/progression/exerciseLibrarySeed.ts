@@ -1,5 +1,5 @@
 import { db } from '../db/database';
-import { Exercise } from '../db/models';
+import type { Exercise } from '../db/models';
 
 let isSeeding = false;
 

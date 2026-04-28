@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Exercise } from '../db/models';
+import type { Exercise } from '../db/models';
 import { Search, Plus, X, ChevronRight, Dumbbell } from 'lucide-react';
 import { m, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/ui';

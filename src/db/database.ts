@@ -1,6 +1,7 @@
-import Dexie, { Table } from 'dexie';
+import type { Table } from 'dexie';
+import Dexie from 'dexie';
 import { normalizeExerciseName } from '../utils/normalization';
-import {
+import type {
   Session,
   ExerciseSettings,
   TrainingSession,

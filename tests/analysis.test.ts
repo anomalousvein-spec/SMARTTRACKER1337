@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { calculateAnalysisData, getVolumeInsights, WeeklyData } from '../src/utils/analysis';
-import { Session } from '../src/db/models';
+import type { WeeklyData } from '../src/utils/analysis';
+import { calculateAnalysisData, getVolumeInsights } from '../src/utils/analysis';
+import type { Session } from '../src/db/models';
 
 describe('Analysis Logic', () => {
   const mockSessions: Session[] = [

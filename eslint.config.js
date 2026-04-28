@@ -19,6 +19,8 @@ export default [
         ecmaFeatures: {
           jsx: true,
         },
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
       globals: {
         ...globals.browser,
@@ -37,12 +39,46 @@ export default [
       },
     },
     rules: {
+      // React specific rules
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+
+      // TypeScript rules (non-type-aware - safe for all files)
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-non-null-assertion": "warn",
+      "@typescript-eslint/consistent-type-imports": ["warn", { prefer: "type-imports" }],
+
+      // Best practices
       "no-console": ["warn", { allow: ["warn", "error"] }],
+      "no-var": "error",
+      "prefer-const": "warn",
+      "no-undef": "off",
+      eqeqeq: ["warn", "always", { null: "ignore" }],
+      "no-multiple-empty-lines": ["warn", { max: 1, maxEOF: 0 }],
+      curly: ["warn", "all"],
+      "brace-style": ["warn", "1tbs", { allowSingleLine: false }],
+    },
+  },
+  // Type-aware linting for src and tests only
+  {
+    files: ["src/**/*.{ts,tsx}", "tests/**/*.{ts,tsx}"],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    rules: {
+      "@typescript-eslint/prefer-nullish-coalescing": "warn",
+      "@typescript-eslint/prefer-optional-chain": "warn",
+      "@typescript-eslint/no-floating-promises": "error",
+      "@typescript-eslint/await-thenable": "error",
+      "@typescript-eslint/return-await": ["warn", "in-try-catch"],
     },
   },
   eslintConfigPrettier,

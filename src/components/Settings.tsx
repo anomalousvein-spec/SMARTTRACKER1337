@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TrainingSession, ExperienceLevel, TrainingSessionExercise, Exercise } from '../db/models';
+import type { TrainingSession, ExperienceLevel, TrainingSessionExercise, Exercise } from '../db/models';
 import { getAllTrainingSessions, saveTrainingSession, deleteTrainingSession, getUserSettings, updateUserSettings } from '../progression/settings';
 import { seedExerciseLibrary } from '../progression/exerciseLibrarySeed';
 import { Palette, Scale, Package, Plus, Trash2, Edit2, ChevronDown, Library, Calendar, RotateCcw, ArrowRight } from 'lucide-react';
@@ -58,7 +58,7 @@ const Settings: React.FC<SettingsProps> = ({ theme, selectTheme }) => {
   };
 
   const handleSaveSession = async () => {
-    if (!editingSession || !editingSession.name) {
+    if (!editingSession?.name) {
       alert('Please provide a name for the split.');
       return;
     }
@@ -109,7 +109,7 @@ const Settings: React.FC<SettingsProps> = ({ theme, selectTheme }) => {
     setShowPicker(-1);
   };
   const updateExInSession = (idx: number, field: keyof TrainingSessionExercise, value: string | number | [number, number]) => {
-    if (!editingSession || !editingSession.exercises) return;
+    if (!editingSession?.exercises) return;
     const exercises = [...editingSession.exercises];
     const currentExercise = exercises[idx];
     if (!currentExercise) return;
@@ -135,7 +135,7 @@ const Settings: React.FC<SettingsProps> = ({ theme, selectTheme }) => {
   };
 
   const removeExFromSession = (idx: number) => {
-    if (!editingSession || !editingSession.exercises) return;
+    if (!editingSession?.exercises) return;
     const exercises = editingSession.exercises.filter((_, i) => i !== idx);
     setEditingSession({ ...editingSession, exercises });
   };

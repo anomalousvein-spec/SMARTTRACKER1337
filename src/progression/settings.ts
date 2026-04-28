@@ -1,6 +1,6 @@
 import { db } from '../db/database';
 import { normalizeExerciseName } from '../utils/normalization';
-import { ExerciseSettings, TrainingSession, UserSettings } from '../db/models';
+import type { ExerciseSettings, TrainingSession, UserSettings } from '../db/models';
 import {
   createDefaultUserSettings,
   getLegacyExperienceLevel,
@@ -84,7 +84,7 @@ export async function updateExerciseSettings(
 
 // Training Sessions (Splits)
 export async function getAllTrainingSessions(): Promise<TrainingSession[]> {
-  return await db.trainingSessions.toArray();
+  return db.trainingSessions.toArray();
 }
 
 export async function saveTrainingSession(session: TrainingSession): Promise<void> {

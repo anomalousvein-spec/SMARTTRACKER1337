@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import 'fake-indexeddb/auto';
 import { db } from '../src/db/database';
 import { calculateNextSuggestion, getVolumeStatus } from '../src/progression/engine';
-import { Session, UserSettings } from '../src/db/models';
+import type { Session, UserSettings } from '../src/db/models';
 
 function withExerciseIndex(session: Session, exerciseNames: string[]): Session {
   return { ...session, exerciseNames };
