@@ -1,5 +1,5 @@
-import React from 'react';
-import { Trash2, Plus, Save, Info, CheckCircle2, Copy, XCircle, Search, Zap, Dumbbell, Calendar, Minus, Target, CloudCheck, RefreshCw } from 'lucide-react';
+import React, { useState } from 'react';
+import { Trash2, Plus, Save, Info, CheckCircle2, Copy, XCircle, Search, Zap, Dumbbell, Calendar, Minus, Target, CloudCheck, RefreshCw, ChevronDown, ChevronUp } from 'lucide-react';
 import { m, AnimatePresence } from 'framer-motion';
 import type { Exercise, PostSessionDebrief, PreSessionCheckIn } from '../../db/models';
 import { calculateE1RM, getVolumeStatus, type Suggestion } from '../../progression/engine';
@@ -109,72 +109,95 @@ export function CoachCheckInSection({
   checkIn: PreSessionCheckIn;
   onChange: (value: PreSessionCheckIn) => void;
 }) {
-  return (
-    <section className="glass space-y-6 rounded-2xl border border-white/10 p-5 sm:p-6">
-      <div className="flex items-center gap-3 px-1">
-        <div className="rounded-xl bg-amber-500/10 p-2.5 text-amber-500">
-          <Zap size={18} />
-        </div>
-        <div>
-          <h3 className="text-[11px] font-black uppercase tracking-[0.14em] text-amber-600 dark:text-amber-400">Coach Check-In</h3>
-          <p className="mt-1 text-[10px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Guide today&apos;s plan before you lift</p>
-        </div>
-      </div>
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
-      <div className="grid grid-cols-1 gap-5">
-        <CoachChoiceGroup
-          label="Recovery"
-          value={checkIn.recovery}
-          options={[
-            { value: 'poor', label: 'Poor', description: 'Cap progression and protect recovery.' },
-            { value: 'okay', label: 'Okay', description: 'Train normally with standard progression.' },
-            { value: 'good', label: 'Good', description: 'Allow stronger progression if execution supports it.' },
-          ]}
-          onChange={(value) => onChange({ ...checkIn, recovery: value as PreSessionCheckIn['recovery'] })}
-        />
-        <CoachChoiceGroup
-          label="Energy"
-          value={checkIn.energy}
-          options={[
-            { value: 'low', label: 'Low', description: 'Bias the plan toward controlled execution.' },
-            { value: 'medium', label: 'Medium', description: 'Run the standard session target.' },
-            { value: 'high', label: 'High', description: 'Good candidate for a stronger push.' },
-          ]}
-          onChange={(value) => onChange({ ...checkIn, energy: value as PreSessionCheckIn['energy'] })}
-        />
-        <CoachChoiceGroup
-          label="Body Status"
-          value={checkIn.bodyStatus}
-          options={[
-            { value: 'fresh', label: 'Fresh', description: 'Minimal soreness and no meaningful discomfort.' },
-            { value: 'normal_soreness', label: 'Normal', description: 'Expected training soreness is present.' },
-            { value: 'pain_or_strain', label: 'Pain', description: 'Something feels irritated or strained.' },
-          ]}
-          onChange={(value) => onChange({ ...checkIn, bodyStatus: value as PreSessionCheckIn['bodyStatus'] })}
-        />
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <CoachChoiceGroup
-            label="Goal Today"
-            value={checkIn.goal}
-            options={[
-              { value: 'push', label: 'Push', description: 'If recovery supports it, lean into progression.' },
-              { value: 'standard', label: 'Standard', description: 'Run the normal productive target.' },
-              { value: 'light', label: 'Light', description: 'Bias toward maintenance and recovery.' },
-            ]}
-            onChange={(value) => onChange({ ...checkIn, goal: value as PreSessionCheckIn['goal'] })}
-          />
-          <CoachChoiceGroup
-            label="Time Window"
-            value={checkIn.timeAvailable}
-            options={[
-              { value: 'short', label: 'Short', description: 'Favor minimum effective work.' },
-              { value: 'normal', label: 'Normal', description: 'Run the intended session length.' },
-              { value: 'long', label: 'Long', description: 'Room for full work and accessories.' },
-            ]}
-            onChange={(value) => onChange({ ...checkIn, timeAvailable: value as PreSessionCheckIn['timeAvailable'] })}
-          />
+  return (
+    <section className="glass rounded-2xl border border-white/10 p-5 sm:p-6">
+      <button
+        type="button"
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        className="flex w-full items-center justify-between gap-3 px-1"
+      >
+        <div className="flex items-center gap-3">
+          <div className="rounded-xl bg-amber-500/10 p-2.5 text-amber-500">
+            <Zap size={18} />
+          </div>
+          <div className="text-left">
+            <h3 className="text-[11px] font-black uppercase tracking-[0.14em] text-amber-600 dark:text-amber-400">Coach Check-In</h3>
+            <p className="mt-1 text-[10px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Guide today&apos;s plan before you lift</p>
+          </div>
         </div>
-      </div>
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl text-theme-text-tertiary transition-all hover:bg-theme-bg-tertiary active:scale-90">
+          {isCollapsed ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
+        </div>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {!isCollapsed && (
+          <m.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            <div className="grid grid-cols-1 gap-5 pt-6">
+              <CoachChoiceGroup
+                label="Recovery"
+                value={checkIn.recovery}
+                options={[
+                  { value: 'poor', label: 'Poor', description: 'Cap progression and protect recovery.' },
+                  { value: 'okay', label: 'Okay', description: 'Train normally with standard progression.' },
+                  { value: 'good', label: 'Good', description: 'Allow stronger progression if execution supports it.' },
+                ]}
+                onChange={(value) => onChange({ ...checkIn, recovery: value as PreSessionCheckIn['recovery'] })}
+              />
+              <CoachChoiceGroup
+                label="Energy"
+                value={checkIn.energy}
+                options={[
+                  { value: 'low', label: 'Low', description: 'Bias the plan toward controlled execution.' },
+                  { value: 'medium', label: 'Medium', description: 'Run the standard session target.' },
+                  { value: 'high', label: 'High', description: 'Good candidate for a stronger push.' },
+                ]}
+                onChange={(value) => onChange({ ...checkIn, energy: value as PreSessionCheckIn['energy'] })}
+              />
+              <CoachChoiceGroup
+                label="Body Status"
+                value={checkIn.bodyStatus}
+                options={[
+                  { value: 'fresh', label: 'Fresh', description: 'Minimal soreness and no meaningful discomfort.' },
+                  { value: 'normal_soreness', label: 'Normal', description: 'Expected training soreness is present.' },
+                  { value: 'pain_or_strain', label: 'Pain', description: 'Something feels irritated or strained.' },
+                ]}
+                onChange={(value) => onChange({ ...checkIn, bodyStatus: value as PreSessionCheckIn['bodyStatus'] })}
+              />
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <CoachChoiceGroup
+                  label="Goal Today"
+                  value={checkIn.goal}
+                  options={[
+                    { value: 'push', label: 'Push', description: 'If recovery supports it, lean into progression.' },
+                    { value: 'standard', label: 'Standard', description: 'Run the normal productive target.' },
+                    { value: 'light', label: 'Light', description: 'Bias toward maintenance and recovery.' },
+                  ]}
+                  onChange={(value) => onChange({ ...checkIn, goal: value as PreSessionCheckIn['goal'] })}
+                />
+                <CoachChoiceGroup
+                  label="Time Window"
+                  value={checkIn.timeAvailable}
+                  options={[
+                    { value: 'short', label: 'Short', description: 'Favor minimum effective work.' },
+                    { value: 'normal', label: 'Normal', description: 'Run the intended session length.' },
+                    { value: 'long', label: 'Long', description: 'Room for full work and accessories.' },
+                  ]}
+                  onChange={(value) => onChange({ ...checkIn, timeAvailable: value as PreSessionCheckIn['timeAvailable'] })}
+                />
+              </div>
+            </div>
+          </m.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

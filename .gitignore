@@ -2,8 +2,6 @@
 # Build artifacts
 dist/
 build/
-*.js
-*.ts
 
 # Dependencies
 node_modules/
@@ -15,7 +13,7 @@ node_modules/
 # Environment
 .env
 .env.local
-*.env.*
+.env.*
 
 # Editors
 .vscode/
@@ -30,9 +28,11 @@ __pycache__/
 # Compiled files
 *.o
 *.obj
-*.so
-*.dll
 *.exe
+*.dll
+*.so
+*.a
+*.out
 
 # Coverage
 coverage/
@@ -62,8 +62,4 @@ htmlcov/
 *.tar.bz2
 *.tar.xz
 *.tar.zst
-
-# System
-.DS_Store
-Thumbs.db
 ```
