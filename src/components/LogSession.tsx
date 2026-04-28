@@ -277,7 +277,7 @@ const LogSession: React.FC = () => {
       setNotes('');
       setDraftSavedAt(null);
       setIsDraftSaving(false);
-      getUserSettings().then(s => setProgramWeek(s.lastUsedWeek ?? 1));
+      void getUserSettings().then(s => setProgramWeek(s.lastUsedWeek ?? 1));
     }
   }, []);
 

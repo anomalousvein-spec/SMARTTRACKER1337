@@ -21,6 +21,7 @@ export default [
         },
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
+        allowDefaultProject: ["eslint.config.js", "scripts/**/*.mjs"],
       },
       globals: {
         ...globals.browser,

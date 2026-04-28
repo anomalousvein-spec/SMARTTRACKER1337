@@ -26,7 +26,7 @@ export function useHistoryData() {
   }, []);
 
   useEffect(() => {
-    loadSessions();
+    void loadSessions();
   }, [loadSessions]);
 
   const deleteSession = useCallback(
