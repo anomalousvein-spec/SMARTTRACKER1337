@@ -96,7 +96,9 @@ describe('progression taxonomy coverage', () => {
     ['plank', 13, 'core'],
     ['standing calf raise', 17, 'calves'],
   ])('caps weekly volume near MRV for %s', async (exerciseName, existingSets, muscleName) => {
-    await db.sessions.add(buildSession(daysAgoIso(1), exerciseName, existingSets, exerciseName === 'plank' ? 0 : 100));
+    const session = buildSession(daysAgoIso(1), exerciseName, existingSets, exerciseName === 'plank' ? 0 : 100);
+    // Use saveWorkoutSession to ensure exerciseNames index is populated
+    await saveWorkoutSession(session);
 
     const suggestion = await calculateNextSuggestion(exerciseName);
 

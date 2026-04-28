@@ -51,6 +51,7 @@ for (const entry of seedEntries) {
 }
 
 if (missingLandmarks.size === 0 && missingMappings.length === 0 && mismatchedMappings.length === 0) {
+  // eslint-disable-next-line no-console -- Build script output
   console.log('Progression taxonomy check passed.');
   process.exit(0);
 }
