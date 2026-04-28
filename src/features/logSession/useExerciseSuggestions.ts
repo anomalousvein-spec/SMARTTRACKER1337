@@ -1,12 +1,13 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import type { ExerciseSession } from '../../db/models';
 import { calculateNextSuggestion, type Suggestion } from '../../progression/engine';
+import { normalizeExerciseName } from '../../utils/normalization';
 
 export function getTrackedExerciseNames(exercises: ExerciseSession[]) {
   const seenNames = new Set<string>();
 
   return exercises
-    .map((exercise) => exercise.exerciseName.toLowerCase().trim())
+    .map((exercise) => normalizeExerciseName(exercise.exerciseName))
     .filter((exerciseName) => {
       if (exerciseName.length === 0 || seenNames.has(exerciseName)) {
         return false;

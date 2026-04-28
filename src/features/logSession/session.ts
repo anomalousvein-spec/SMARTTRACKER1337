@@ -1,5 +1,6 @@
 import type { ExerciseSession, PostSessionDebrief, PreSessionCheckIn, Session } from '../../db/models';
 import { validateWorkoutSet } from '../../utils/validation';
+import { normalizeExerciseName } from '../../utils/normalization';
 
 export interface DerivedReadiness {
   sleep: number;
@@ -78,7 +79,7 @@ export function normalizeExercisesForSave(exercises: ExerciseSession[]) {
     .filter((exercise) => exercise.exerciseName.trim() !== '')
     .map((exercise) => ({
       ...exercise,
-      exerciseName: exercise.exerciseName.toLowerCase().trim(),
+      exerciseName: normalizeExerciseName(exercise.exerciseName),
       sets: exercise.sets.filter((set) => set.weight > 0 || set.reps > 0),
     }))
     .filter((exercise) => exercise.sets.length > 0);

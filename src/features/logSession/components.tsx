@@ -1,10 +1,11 @@
 import React from 'react';
 import { Trash2, Plus, Save, Info, CheckCircle2, Copy, XCircle, Search, Zap, Dumbbell, Calendar, Minus, Target, CloudCheck, RefreshCw } from 'lucide-react';
 import { m, AnimatePresence } from 'framer-motion';
-import type { Exercise, ExerciseSession, PostSessionDebrief, PreSessionCheckIn, WorkoutSet } from '../../db/models';
+import type { Exercise, PostSessionDebrief, PreSessionCheckIn } from '../../db/models';
 import { calculateE1RM, getVolumeStatus, type Suggestion } from '../../progression/engine';
 import ExerciseLibrary from '../../components/ExerciseLibrary';
 import { cn } from '../../utils/ui';
+import type { ExerciseSessionUI, WorkoutSetUI } from './types';
 
 export function LogSessionHeader({
   hasDraft,
@@ -294,14 +295,14 @@ export const ExerciseCard = React.memo(function ExerciseCard({
   onAddWorkSet,
   onCopyLastSet,
 }: {
-  exercise: ExerciseSession;
+  exercise: ExerciseSessionUI;
   exerciseIndex: number;
   unit: string;
   suggestion?: Suggestion;
   onPickExercise: (index: number) => void;
   onRemoveExercise: (index: number) => void;
   onKeyDown: (event: React.KeyboardEvent) => void;
-  onUpdateSet: (exerciseIndex: number, setIndex: number, field: keyof WorkoutSet, value: string) => void;
+  onUpdateSet: (exerciseIndex: number, setIndex: number, field: keyof WorkoutSetUI, value: string) => void;
   onRemoveSet: (exerciseIndex: number, setIndex: number) => void;
   onAddWarmupSet: (exerciseIndex: number) => void;
   onAddWorkSet: (exerciseIndex: number) => void;
@@ -388,8 +389,10 @@ export const ExerciseCard = React.memo(function ExerciseCard({
           </div>
           <AnimatePresence mode="popLayout">
             {exercise.sets.map((set, setIndex) => {
-              const isNewBestWeight = suggestion && set.weight > suggestion.allTimeBestWeight;
-              const isNewBest1RM = suggestion && calculateE1RM(set.weight, set.reps) > suggestion.allTimeBestE1RM;
+              const weightNum = parseFloat(set.weight) || 0;
+              const repsNum = parseInt(set.reps) || 0;
+              const isNewBestWeight = suggestion && weightNum > suggestion.allTimeBestWeight;
+              const isNewBest1RM = suggestion && calculateE1RM(weightNum, repsNum) > suggestion.allTimeBestE1RM;
 
               return (
                 <m.div
@@ -408,7 +411,7 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                       type="text"
                       inputMode="decimal"
                       className="h-14 w-full rounded-2xl border border-white/5 bg-theme-bg-tertiary text-center font-black text-theme-text-primary outline-none transition-all focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10"
-                      value={set.weight || ''}
+                      value={set.weight}
                       placeholder="0"
                       onFocus={(e) => e.target.select()}
                       onKeyDown={onKeyDown}
@@ -425,7 +428,7 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                       type="text"
                       inputMode="numeric"
                       className="h-14 w-full rounded-2xl border border-white/5 bg-theme-bg-tertiary text-center font-black text-theme-text-primary outline-none transition-all focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10"
-                      value={set.reps || ''}
+                      value={set.reps}
                       placeholder="0"
                       onFocus={(e) => e.target.select()}
                       onKeyDown={onKeyDown}
@@ -442,7 +445,7 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                       type="text"
                       inputMode="decimal"
                       className="h-14 w-full rounded-2xl border border-white/5 bg-theme-bg-tertiary text-center font-black text-theme-text-primary outline-none transition-all focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10"
-                      value={set.rpe || ''}
+                      value={set.rpe}
                       placeholder="8"
                       onFocus={(e) => e.target.select()}
                       onKeyDown={onKeyDown}

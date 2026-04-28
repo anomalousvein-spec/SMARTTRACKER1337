@@ -70,8 +70,10 @@ export const MUSCLE_MAPPING: Record<string, { primary: string; secondary?: strin
   'glute bridge': { primary: 'glutes', secondary: ['hamstrings'] },
 };
 
+import { normalizeExerciseName } from '../utils/normalization';
+
 export function getPrimaryMuscle(exerciseName: string): string {
-  const normalized = exerciseName.toLowerCase().trim();
+  const normalized = normalizeExerciseName(exerciseName);
   if (MUSCLE_MAPPING[normalized]) {
     return MUSCLE_MAPPING[normalized].primary;
   }
@@ -97,6 +99,6 @@ export function getPrimaryMuscle(exerciseName: string): string {
 }
 
 export function getSecondaryMuscles(exerciseName: string): string[] {
-  const normalized = exerciseName.toLowerCase().trim();
+  const normalized = normalizeExerciseName(exerciseName);
   return MUSCLE_MAPPING[normalized]?.secondary || [];
 }
