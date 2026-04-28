@@ -89,7 +89,7 @@ export function useDashboardData() {
       }
     }
 
-    load();
+    void load();
 
     return () => {
       isActive = false;

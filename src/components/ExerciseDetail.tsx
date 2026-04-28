@@ -35,13 +35,13 @@ const ExerciseDetail: React.FC = () => {
   const projectedVolumeStatus = suggestion ? getVolumeStatus(suggestion.projectedWeeklySets, suggestion.caps) : null;
 
   const handleApplySwap = (swapName: string) => {
-    navigate('/log', {
+    void navigate('/log', {
       state: {
         prefill: {
           exerciseName: swapName,
-          suggestedWeight: suggestion?.suggestedWeight || 0,
-          suggestedReps: suggestion?.suggestedReps || 8,
-          suggestedSets: suggestion?.suggestedSets || 3,
+          suggestedWeight: suggestion?.suggestedWeight ?? 0,
+          suggestedReps: suggestion?.suggestedReps ?? 8,
+          suggestedSets: suggestion?.suggestedSets ?? 3,
         },
         note: `Tactical swap from ${exerciseName} (Plateau Detection)`,
       },

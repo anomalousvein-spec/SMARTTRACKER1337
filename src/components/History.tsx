@@ -30,8 +30,9 @@ const History: React.FC = () => {
   };
 
   const handleStartEditWeek = (session: Session) => {
-    setEditingWeekId(session.id!);
-    setTempWeek(session.programWeek || 1);
+    if (!session.id) return;
+    setEditingWeekId(session.id);
+    setTempWeek(session.programWeek ?? 1);
   };
 
   const handleSaveWeek = async (id: number) => {
@@ -172,7 +173,7 @@ const History: React.FC = () => {
                                    }}
                                    autoFocus
                                  />
-                                 <button onClick={() => handleSaveWeek(session.id!)} className="text-emerald-500 hover:scale-110 transition-transform"><Check size={12}/></button>
+                                 <button onClick={() => session.id && handleSaveWeek(session.id)} className="text-emerald-500 hover:scale-110 transition-transform"><Check size={12}/></button>
                                  <button onClick={() => setEditingWeekId(null)} className="text-red-400 hover:scale-110 transition-transform"><X size={12}/></button>
                                </div>
                              ) : (
@@ -180,7 +181,7 @@ const History: React.FC = () => {
                                  onClick={() => handleStartEditWeek(session)}
                                  className="flex items-center gap-1.5 rounded-xl border border-blue-100/50 bg-theme-accent/10 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-theme-accent transition-all hover:bg-blue-100 dark:border-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500/20"
                                >
-                                 W{session.programWeek || '?'}
+                                 W{session.programWeek ?? '?'}
                                  <Edit3 size={8} className="opacity-40" />
                                </button>
                              )}
@@ -196,7 +197,7 @@ const History: React.FC = () => {
                           <p className={cn("mt-1 text-base font-black", getSorenessColor(session.soreness))}>{session.soreness}<span className="text-[11px] opacity-40">/10</span></p>
                         </div>
                         <button
-                          onClick={() => handleDeleteSession(session.id!)}
+                          onClick={() => session.id && handleDeleteSession(session.id)}
                           className="flex h-10 w-10 items-center justify-center rounded-2xl text-theme-text-tertiary transition-all active:scale-90 hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950/30"
                         >
                           <Trash2 size={18} />
