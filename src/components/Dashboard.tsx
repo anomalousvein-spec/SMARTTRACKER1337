@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { m, type Variants } from 'framer-motion';
 import { toTitleCase } from '../utils/formatters';
-import { TrainingSession } from '../db/models';
+import type { TrainingSession } from '../db/models';
 import { useDashboardData } from '../features/dashboard/useDashboardData';
 import type { ExerciseSuggestion } from '../features/dashboard/types';
 import EmptyStateCard from './EmptyStateCard';
@@ -62,7 +62,7 @@ const Dashboard: React.FC = () => {
         : 'Flat'
     : 'Building';
   const handleStartWorkout = (suggestion: ExerciseSuggestion) => {
-    navigate('/log', {
+    void navigate('/log', {
       state: {
         prefill: {
           exerciseName: suggestion.exerciseName,
@@ -75,7 +75,7 @@ const Dashboard: React.FC = () => {
   };
 
   const handleStartSplit = (split: TrainingSession) => {
-    navigate('/log', {
+    void navigate('/log', {
       state: {
         prefill: split.exercises.map((exercise) => ({
           exerciseName: exercise.exerciseName,
@@ -89,12 +89,12 @@ const Dashboard: React.FC = () => {
 
   const handleCoachFocusAction = () => {
     if (coachFocus.ctaTarget === 'exercise' && coachFocus.exerciseName) {
-      navigate(`/exercise/${encodeURIComponent(coachFocus.exerciseName)}`);
+      void navigate(`/exercise/${encodeURIComponent(coachFocus.exerciseName)}`);
       return;
     }
 
     if (coachFocus.ctaTarget === 'analysis') {
-      navigate('/analysis');
+      void navigate('/analysis');
       return;
     }
 
@@ -106,7 +106,7 @@ const Dashboard: React.FC = () => {
       }
     }
 
-    navigate('/log');
+    void navigate('/log');
   };
 
   if (loading) {

@@ -1,4 +1,4 @@
-import { ExperienceLevel, ExerciseCoachState, GlobalCoachState, ExerciseSession, Session } from '../db/models';
+import type { ExperienceLevel, ExerciseCoachState, GlobalCoachState, ExerciseSession, Session } from '../db/models';
 import { findExerciseByName, findExerciseVariations } from '../repositories/exerciseLibraryRepository';
 import { getExerciseCoachState, getGlobalCoachState } from '../repositories/coachStateRepository';
 import { getExerciseHistoryByName } from '../repositories/sessionRepository';

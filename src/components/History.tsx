@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Session } from '../db/models';
+import type { Session } from '../db/models';
 import { History as HistoryIcon, Calendar, ChevronRight, Info, Filter, Trash2, Edit3, X, Check, Wand2, ArrowRight, Sparkles } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { m, AnimatePresence, type Variants } from 'framer-motion';

@@ -25,7 +25,7 @@ export async function findExercisesByMovementPattern(
   return db.exerciseLibrary
     .where('movementPattern')
     .equals(pattern)
-    .filter((exercise) => !excludeName || exercise.name.toLowerCase() !== excludeName.toLowerCase())
+    .filter((exercise) => exercise.name.toLowerCase() !== excludeName?.toLowerCase())
     .limit(limit)
     .toArray();
 }

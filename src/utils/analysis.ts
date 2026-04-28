@@ -1,4 +1,4 @@
-import { Session } from '../db/models';
+import type { Session } from '../db/models';
 
 export interface WeeklyData {
   week: number;

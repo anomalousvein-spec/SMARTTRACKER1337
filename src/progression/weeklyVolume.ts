@@ -1,4 +1,4 @@
-import { Exercise } from '../db/models';
+import type { Exercise } from '../db/models';
 import { getPrimaryMuscle, getSecondaryMuscles } from './muscleMapping';
 import { getAllExercises } from '../repositories/exerciseLibraryRepository';
 import { getSessionsInDateRange } from '../repositories/sessionRepository';
