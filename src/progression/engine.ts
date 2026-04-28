@@ -80,7 +80,7 @@ export async function calculateNextSuggestion(
       loadCoachMemory(normalizedExerciseName),
     ]);
     const config = LEVEL_CONFIGS[experienceLevel];
-    const primaryMuscle = libraryEntry?.primaryMuscles[0] || getPrimaryMuscle(normalizedExerciseName);
+    const primaryMuscle = libraryEntry?.primaryMuscles[0] ?? getPrimaryMuscle(normalizedExerciseName);
 
     const currentWeeklySets = await calculateWeeklyVolume(primaryMuscle);
     const genericCaps = VOLUME_CAPS_BY_LEVEL[experienceLevel] || VOLUME_CAPS_BY_LEVEL.intermediate;
@@ -131,6 +131,16 @@ export async function calculateNextSuggestion(
     }
 
     const metrics = calculateMetrics(history, normalizedExerciseName, settings);
+    if (!metrics) {
+      return {
+        suggestedWeight: baselineWeight,
+        suggestedReps: BASELINE_REPS,
+        suggestedSets: BASELINE_SETS,
+        reason: 'Insufficient history data',
+        plateauFlag: false,
+      };
+    }
+    
     const suggestion = applyDecisionHierarchy(
       metrics,
       settings,
@@ -211,10 +221,14 @@ interface CoachMemoryContext {
   global: GlobalCoachState;
 }
 
-function calculateMetrics(history: Session[], exerciseName: string, settings: { maxReps: number }): Metrics {
+function calculateMetrics(history: Session[], exerciseName: string, settings: { maxReps: number }): Metrics | null {
   const normalizedExerciseName = normalizeExerciseName(exerciseName);
   const lastSession = history[history.length - 1];
-  const lastExercise = lastSession.exercises.find((entry) => normalizeExerciseName(entry.exerciseName) === normalizedExerciseName)!;
+  if (!lastSession) return null;
+  
+  const lastExercise = lastSession.exercises.find((entry) => normalizeExerciseName(entry.exerciseName) === normalizedExerciseName);
+  if (!lastExercise || lastExercise.sets.length === 0) return null;
+  
   const currentE1RM = calculateMaxE1RMFromSets(lastExercise.sets);
   const daysSinceLast = Math.floor((Date.now() - new Date(lastSession.date).getTime()) / (1000 * 60 * 60 * 24));
   const avgRPE = lastExercise.sets.reduce((sum, set) => sum + set.rpe, 0) / lastExercise.sets.length;
@@ -591,7 +605,7 @@ function finalizeSets(
 
   if (suggestion.plateauFlag && exerciseName) {
     suggestion.reason += ' - Consider swapping exercise.';
-    suggestion.swapSuggestions = suggestion.swapSuggestions || SWAP_MAPPING[normalizeExerciseName(exerciseName)] || [];
+    suggestion.swapSuggestions = suggestion.swapSuggestions ?? SWAP_MAPPING[normalizeExerciseName(exerciseName)] ?? [];
   }
 
   suggestion.currentWeeklySets = currentWeeklySets;

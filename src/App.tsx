@@ -39,7 +39,7 @@ const AnimatedRoutes: React.FC<{ theme: string; selectTheme: (theme: string) => 
 const App: React.FC = () => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [theme, setTheme] = useState<string>(() => {
-    return localStorage.getItem('theme') || 'monochrome';
+    return localStorage.getItem('theme') ?? 'monochrome';
   });
   const [isStandalone, setIsStandalone] = useState(() =>
     window.matchMedia('(display-mode: standalone)').matches || (window.navigator as Navigator & { standalone?: boolean }).standalone === true

@@ -59,7 +59,7 @@ class ErrorBoundary extends Component<Props, State> {
 
             <div className="bg-red-500/10 p-4 rounded-2xl border border-red-500/20">
                <code className="text-[10px] font-black text-red-500 break-all uppercase tracking-widest leading-loose">
-                 {this.state.error?.message || 'Unknown technical failure'}
+                 {this.state.error?.message ?? 'Unknown technical failure'}
                </code>
             </div>
 

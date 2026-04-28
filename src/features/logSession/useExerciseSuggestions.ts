@@ -37,11 +37,6 @@ export function useExerciseSuggestions(
   const exerciseNameSignature = deferredExerciseNames.join('|');
 
   useEffect(() => {
-    const updateSuggestion = async (exerciseName: string) => {
-      const suggestion = await calculateNextSuggestion(exerciseName, programWeek, readiness);
-      setSuggestions((previous) => ({ ...previous, [exerciseName]: suggestion }));
-    };
-
     const activeNames = new Set(deferredExerciseNames);
 
     Object.keys(debounceTimer.current).forEach((exerciseName) => {
@@ -57,16 +52,20 @@ export function useExerciseSuggestions(
       }
 
       const timerId = setTimeout(() => {
-        void updateSuggestion(exerciseName);
+        void (async () => {
+          const suggestion = await calculateNextSuggestion(exerciseName, programWeek, readiness);
+          setSuggestions((previous) => ({ ...previous, [exerciseName]: suggestion }));
+        })();
       }, 500);
       
       debounceTimer.current[exerciseName] = timerId;
     });
 
     return () => {
-      Object.keys(debounceTimer.current).forEach((exerciseName) => {
-        if (debounceTimer.current[exerciseName]) {
-          clearTimeout(debounceTimer.current[exerciseName]);
+      const timersToClear = { ...debounceTimer.current };
+      Object.keys(timersToClear).forEach((exerciseName) => {
+        if (timersToClear[exerciseName]) {
+          clearTimeout(timersToClear[exerciseName]);
         }
       });
     };
@@ -74,12 +73,6 @@ export function useExerciseSuggestions(
     exerciseNameSignature,
     deferredExerciseNames,
     programWeek,
-    readiness.sleep,
-    readiness.energy,
-    readiness.soreness,
-    readiness.bodyStatus,
-    readiness.goal,
-    readiness.timeAvailable,
     readiness,
   ]);
 

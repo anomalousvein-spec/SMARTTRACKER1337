@@ -159,7 +159,10 @@ export function groupSessionsByMonth(sessions: Session[]): SessionMonthGroup[] {
       groups.set(monthYear, []);
     }
 
-    groups.get(monthYear)!.push(session);
+    const group = groups.get(monthYear);
+    if (group) {
+      group.push(session);
+    }
   });
 
   return Array.from(groups.entries()).map(([monthYear, monthSessions]) => ({
