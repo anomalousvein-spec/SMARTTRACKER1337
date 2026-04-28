@@ -40,11 +40,11 @@ export async function restoreAppData(data: Partial<BackupData>): Promise<void> {
       await db.userSettings.clear();
       await db.exerciseLibrary.clear();
 
-      await db.sessions.bulkPut(data.sessions || []);
-      await db.exerciseSettings.bulkPut(data.settings || []);
-      await db.trainingSessions.bulkPut(data.training || []);
-      await db.userSettings.bulkPut(data.userSettings || []);
-      await db.exerciseLibrary.bulkPut(data.library || []);
+      await db.sessions.bulkPut(data.sessions ?? []);
+      await db.exerciseSettings.bulkPut(data.settings ?? []);
+      await db.trainingSessions.bulkPut(data.training ?? []);
+      await db.userSettings.bulkPut(data.userSettings ?? []);
+      await db.exerciseLibrary.bulkPut(data.library ?? []);
     }
   );
 }

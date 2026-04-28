@@ -21,7 +21,8 @@ export function calculateAnalysisData(sessions: Session[], filterExercise?: stri
   const validSessions = sessions.filter(s => s.programWeek !== undefined);
 
   validSessions.forEach(session => {
-    const week = session.programWeek!;
+    const week = session.programWeek;
+    if (week === undefined) return;
 
     // Filter exercises if specified
     const exercisesToAnalyze = filterExercise
@@ -41,7 +42,8 @@ export function calculateAnalysisData(sessions: Session[], filterExercise?: stri
       });
     }
 
-    const data = weeklyMap.get(week)!;
+    const data = weeklyMap.get(week);
+    if (!data) return;
 
     exercisesToAnalyze.forEach(ex => {
       ex.sets.forEach(set => {
@@ -58,7 +60,8 @@ export function calculateAnalysisData(sessions: Session[], filterExercise?: stri
   const sortedWeeks = Array.from(weeklyMap.keys()).sort((a, b) => a - b);
 
   sortedWeeks.forEach((week, index) => {
-    const data = weeklyMap.get(week)!;
+    const data = weeklyMap.get(week);
+    if (!data) return;
 
     // Calculate Average Weight (Volume / Total Reps)
     if (data.totalReps > 0) {
@@ -68,8 +71,8 @@ export function calculateAnalysisData(sessions: Session[], filterExercise?: stri
     // Calculate % change from previous week
     if (index > 0) {
       const prevWeek = sortedWeeks[index - 1];
-      const prevData = weeklyMap.get(prevWeek)!;
-      if (prevData.totalVolume > 0) {
+      const prevData = weeklyMap.get(prevWeek);
+      if (prevData && prevData.totalVolume > 0) {
         data.percentChange = Math.round(((data.totalVolume - prevData.totalVolume) / prevData.totalVolume) * 100);
       }
     }
@@ -82,7 +85,7 @@ export function getVolumeInsights(weeklyData: WeeklyData[], exerciseName?: strin
   if (weeklyData.length < 2) return "Continue logging sessions to unlock progress insights.";
 
   const last = weeklyData[weeklyData.length - 1];
-  const percent = last.percentChange || 0;
+  const percent = last.percentChange ?? 0;
   const context = exerciseName && exerciseName !== 'All' ? `${exerciseName}` : 'overall';
 
   if (percent > 20) {

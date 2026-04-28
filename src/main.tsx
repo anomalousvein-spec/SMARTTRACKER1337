@@ -10,7 +10,13 @@ const loadMotionFeatures = () => import('./motionFeatures').then((mod) => mod.de
 
 registerSW({ immediate: true });
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+// Check if root element exists before rendering
+const rootElement = document.getElementById('root');
+if (!rootElement) {
+  throw new Error('Failed to find the root element');
+}
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <LazyMotion features={loadMotionFeatures} strict>
       <ErrorBoundary>

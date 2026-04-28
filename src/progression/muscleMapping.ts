@@ -100,5 +100,5 @@ export function getPrimaryMuscle(exerciseName: string): string {
 
 export function getSecondaryMuscles(exerciseName: string): string[] {
   const normalized = normalizeExerciseName(exerciseName);
-  return MUSCLE_MAPPING[normalized]?.secondary || [];
+  return MUSCLE_MAPPING[normalized]?.secondary ?? [];
 }
