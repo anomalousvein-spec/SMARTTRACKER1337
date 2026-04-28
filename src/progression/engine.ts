@@ -6,6 +6,15 @@ import { toTitleCase } from '../utils/formatters';
 import { getPrimaryMuscle } from './muscleMapping';
 import { getExperienceLevelSetting, getSettings, getUserSettings, MUSCLE_LANDMARKS, VOLUME_CAPS_BY_LEVEL } from './settings';
 import { calculateWeeklyVolume } from './weeklyVolume';
+import { normalizeExerciseName } from '../utils/normalization';
+import {
+  BASELINE_REPS,
+  BASELINE_SETS,
+  BASELINE_WEIGHT_KG,
+  BASELINE_WEIGHT_LBS,
+  LEVEL_CONFIGS,
+  SWAP_MAPPING,
+} from './config';
 
 export interface Suggestion {
   suggestedWeight: number;
@@ -43,36 +52,6 @@ export function getVolumeStatus(
   if (weeklySets >= caps.mav) return 'near recovery limit';
   if (weeklySets >= caps.mev) return 'optimal stimulus';
   return 'under-stimulated';
-}
-
-const BASELINE_SETS = 3;
-const BASELINE_REPS = 8;
-const BASELINE_WEIGHT_LBS = 135;
-const BASELINE_WEIGHT_KG = 60;
-
-const LEVEL_CONFIGS: Record<ExperienceLevel, {
-  incrementMult: number;
-  setCap: number;
-  plateauSessions: number | null;
-  volumeEase: number;
-  rpeThresholdOffset: number;
-}> = {
-  beginner: { incrementMult: 1.0, setCap: 5, plateauSessions: null, volumeEase: 1.2, rpeThresholdOffset: -1.0 },
-  novice: { incrementMult: 1.0, setCap: 5, plateauSessions: 4, volumeEase: 1.1, rpeThresholdOffset: -0.5 },
-  intermediate: { incrementMult: 1.0, setCap: 5, plateauSessions: 3, volumeEase: 1.0, rpeThresholdOffset: 0.0 },
-  advanced: { incrementMult: 0.5, setCap: 8, plateauSessions: 3, volumeEase: 0.8, rpeThresholdOffset: 0.5 },
-};
-
-const SWAP_MAPPING: Record<string, string[]> = {
-  'bench press': ['machine chest press', 'incline dumbbell press'],
-  'squat': ['leg press', 'leg extension'],
-  'deadlift': ['seated leg curl', 'back extension'],
-  'overhead press': ['lateral raise', 'machine shoulder press'],
-  'barbell row': ['seated cable row', 'chest supported row'],
-};
-
-function normalizeExerciseName(exerciseName: string) {
-  return exerciseName.toLowerCase().trim();
 }
 
 export const calculateE1RM = (weight: number, reps: number) => {
@@ -612,7 +591,7 @@ function finalizeSets(
 
   if (suggestion.plateauFlag && exerciseName) {
     suggestion.reason += ' - Consider swapping exercise.';
-    suggestion.swapSuggestions = suggestion.swapSuggestions || SWAP_MAPPING[exerciseName.toLowerCase()] || [];
+    suggestion.swapSuggestions = suggestion.swapSuggestions || SWAP_MAPPING[normalizeExerciseName(exerciseName)] || [];
   }
 
   suggestion.currentWeeklySets = currentWeeklySets;

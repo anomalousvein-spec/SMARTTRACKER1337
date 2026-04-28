@@ -1,4 +1,5 @@
 import { db } from '../db/database';
+import { normalizeExerciseName } from '../utils/normalization';
 import { ExerciseSettings, TrainingSession, UserSettings } from '../db/models';
 import {
   createDefaultUserSettings,
@@ -14,9 +15,6 @@ const DEFAULT_SETTINGS: Omit<ExerciseSettings, 'exerciseName'> = {
   weightIncrement: 5, // Default lbs
 };
 
-function normalizeExerciseName(exerciseName: string) {
-  return exerciseName.toLowerCase().trim();
-}
 
 export const VOLUME_CAPS_BY_LEVEL = {
   beginner:     { mev: 6,  mav: 8,  mrv: 12 },

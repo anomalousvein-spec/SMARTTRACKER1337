@@ -2,6 +2,7 @@ import type { ExerciseSession, Session, TrainingSession } from '../db/models';
 import { calculateE1RM } from '../progression/engine';
 import { calculateAnalysisData, type WeeklyData } from './analysis';
 import { formatMonthYear } from './formatters';
+import { normalizeExerciseName } from '../utils/normalization';
 
 export interface SessionMonthGroup {
   monthYear: string;
@@ -77,7 +78,7 @@ export function getSuggestedExerciseNames(
     const isCurrentProgramWeek = currentProgramWeek !== undefined && session.programWeek === currentProgramWeek;
 
     session.exercises.forEach((exercise) => {
-      const normalizedName = exercise.exerciseName.toLowerCase().trim();
+      const normalizedName = normalizeExerciseName(exercise.exerciseName);
       const current = exerciseStats.get(normalizedName);
       const scoreDelta =
         (isCurrentProgramWeek ? 100 : 0) +
@@ -107,7 +108,7 @@ export function getSuggestedExerciseNames(
 
   trainingSessions.forEach((trainingSession) => {
     trainingSession.exercises.forEach((exercise) => {
-      const normalizedName = exercise.exerciseName.toLowerCase().trim();
+      const normalizedName = normalizeExerciseName(exercise.exerciseName);
       const current = exerciseStats.get(normalizedName);
 
       if (current) {
@@ -171,7 +172,7 @@ export function buildExerciseHistoryPoints(history: Session[], exerciseName: str
   return history
     .map((session) => {
       const exercise = session.exercises.find(
-        (entry) => entry.exerciseName.toLowerCase() === exerciseName.toLowerCase()
+        (entry) => normalizeExerciseName(entry.exerciseName) === normalizeExerciseName(exerciseName)
       );
 
       if (!exercise) {

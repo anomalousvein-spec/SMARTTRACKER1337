@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, LayoutGroup } from 'framer-motion';
-import type { Session, ExerciseSession, WorkoutSet, Exercise } from '../db/models';
+import type { Session, Exercise, ExerciseSession } from '../db/models';
 import { getUserSettings, updateUserSettings } from '../progression/settings';
 import { saveWorkoutSession } from '../repositories/sessionRepository';
-import { validateWorkoutSet } from '../utils/validation';
 import { clearWorkoutDraft, formatDraftTimestamp, readWorkoutDraft, WORKOUT_DRAFT_KEY, writeWorkoutDraft } from '../features/logSession/draft';
 import {
   buildSession,
@@ -16,8 +15,9 @@ import {
   validateDebrief,
   validateExercisesForSave,
 } from '../features/logSession/session';
-import type { PrefillExercise, WorkoutDraft } from '../features/logSession/types';
+import type { ExerciseSessionUI, PrefillExercise, WorkoutDraft, WorkoutSetUI } from '../features/logSession/types';
 import { useExerciseSuggestions } from '../features/logSession/useExerciseSuggestions';
+import { normalizeExerciseName } from '../utils/normalization';
 import {
   AddMovementButton,
   CoachCheckInSection,
@@ -98,30 +98,32 @@ const LogSession: React.FC = () => {
   const initialDraftRef = useRef<WorkoutDraft | null>(hasPrefill ? null : readWorkoutDraft());
   const initialDraft = initialDraftRef.current;
 
-  const [exercises, setExercises] = useState<ExerciseSession[]>(() => {
+  const [exercises, setExercises] = useState<ExerciseSessionUI[]>(() => {
     if (prefill) {
-      return Array.isArray(prefill)
-        ? prefill.map((item) => ({
-          exerciseId: item.exerciseId,
-          exerciseName: item.exerciseName,
-          sets: Array.from({ length: item.suggestedSets || 3 }, () => ({
-            weight: item.suggestedWeight || 0,
-            reps: item.suggestedReps || 8,
-            rpe: 8,
-          })),
-        }))
-        : [{
-          exerciseId: prefill.exerciseId,
-          exerciseName: prefill.exerciseName,
-          sets: Array.from({ length: prefill.suggestedSets || 3 }, () => ({
-            weight: prefill.suggestedWeight || 0,
-            reps: prefill.suggestedReps || 8,
-            rpe: 8,
-          })),
-        }];
+      const items = Array.isArray(prefill) ? prefill : [prefill];
+      return items.map((item) => ({
+        exerciseId: item.exerciseId,
+        exerciseName: item.exerciseName,
+        sets: Array.from({ length: item.suggestedSets || 3 }, () => ({
+          weight: (item.suggestedWeight || 0).toString(),
+          reps: (item.suggestedReps || 8).toString(),
+          rpe: '8',
+        })),
+      }));
     }
 
-    return initialDraft?.exercises ?? [];
+    if (initialDraft?.exercises) {
+      return initialDraft.exercises.map(ex => ({
+        ...ex,
+        sets: ex.sets.map(s => ({
+          weight: s.weight.toString(),
+          reps: s.reps.toString(),
+          rpe: s.rpe.toString()
+        }))
+      }));
+    }
+
+    return [];
   });
 
   const [preSessionCheckIn, setPreSessionCheckIn] = useState(() => hasPrefill
@@ -149,16 +151,27 @@ const LogSession: React.FC = () => {
 
   const draftDebounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const derivedReadiness = deriveReadinessScores(preSessionCheckIn);
-  const suggestions = useExerciseSuggestions(exercises, {
+
+  const exercisesForSuggestions = useMemo(() => exercises.map(ex => ({
+    ...ex,
+    sets: ex.sets.map(s => ({
+      weight: parseFloat(s.weight) || 0,
+      reps: parseInt(s.reps) || 0,
+      rpe: parseFloat(s.rpe) || 0
+    }))
+  })), [exercises]);
+
+  const suggestions = useExerciseSuggestions(exercisesForSuggestions, {
     ...derivedReadiness,
     bodyStatus: preSessionCheckIn.bodyStatus,
     goal: preSessionCheckIn.goal,
     timeAvailable: preSessionCheckIn.timeAvailable,
   }, programWeek);
+
   const restoredDraftAtLabel = formatDraftTimestamp(initialDraft?.timestamp);
   const draftSavedAtLabel = formatDraftTimestamp(draftSavedAt ?? undefined);
   const visibleSuggestionReasons = exercises
-    .map((exercise) => suggestions[exercise.exerciseName.toLowerCase().trim()]?.reason)
+    .map((exercise) => suggestions[normalizeExerciseName(exercise.exerciseName)]?.reason)
     .filter((reason): reason is string => Boolean(reason));
   const trackedMovementCount = exercises.filter((exercise) => exercise.exerciseName.trim() !== '').length;
   const readySuggestionCount = Object.values(suggestions).filter((suggestion) => Boolean(suggestion?.reason)).length;
@@ -176,7 +189,15 @@ const LogSession: React.FC = () => {
     if (draftDebounceTimer.current) clearTimeout(draftDebounceTimer.current);
     draftDebounceTimer.current = setTimeout(() => {
       const timestamp = Date.now();
-      writeWorkoutDraft({ exercises, preSessionCheckIn, postSessionDebrief, notes, programWeek, timestamp });
+      const exercisesForDraft: ExerciseSession[] = exercises.map(ex => ({
+        ...ex,
+        sets: ex.sets.map(s => ({
+          weight: parseFloat(s.weight) || 0,
+          reps: parseInt(s.reps) || 0,
+          rpe: parseFloat(s.rpe) || 0
+        }))
+      }));
+      writeWorkoutDraft({ exercises: exercisesForDraft, preSessionCheckIn, postSessionDebrief, notes, programWeek, timestamp });
       setDraftSavedAt(timestamp);
       setIsDraftSaving(false);
     }, 500);
@@ -218,7 +239,7 @@ const LogSession: React.FC = () => {
       }
 
       if (showPicker === -1) {
-        return [...currentExercises, { exerciseId: id, exerciseName: name, sets: [{ weight: 0, reps: 0, rpe: 7 }] }];
+        return [...currentExercises, { exerciseId: id, exerciseName: name, sets: [{ weight: '0', reps: '0', rpe: '7' }] }];
       }
 
       if (showPicker === null) {
@@ -240,7 +261,7 @@ const LogSession: React.FC = () => {
 
   const removeExercise = useCallback((index: number) => {
     const ex = exercises[index];
-    const hasData = ex.exerciseName || ex.sets.some(s => s.weight > 0 || s.reps > 0);
+    const hasData = ex.exerciseName || ex.sets.some(s => parseFloat(s.weight) > 0 || parseInt(s.reps) > 0);
     if (hasData && !confirm(`Remove ${ex.exerciseName || 'this exercise'}?`)) return;
     setExercises(currentExercises => currentExercises.filter((_, i) => i !== index));
   }, [exercises]);
@@ -264,14 +285,18 @@ const LogSession: React.FC = () => {
       if (index !== exIndex) return exercise;
 
       const lastSet = exercise.sets[exercise.sets.length - 1];
+      const lastWeight = parseFloat(lastSet.weight) || 0;
+      const lastReps = parseInt(lastSet.reps) || 0;
+      const lastRPE = parseFloat(lastSet.rpe) || 0;
+
       return {
         ...exercise,
         sets: [
           ...exercise.sets,
           {
-            weight: isWarmup ? Math.round(lastSet.weight * 0.6) : lastSet.weight,
-            reps: isWarmup ? 12 : lastSet.reps,
-            rpe: isWarmup ? 4 : lastSet.rpe,
+            weight: (isWarmup ? Math.round(lastWeight * 0.6) : lastWeight).toString(),
+            reps: (isWarmup ? 12 : lastReps).toString(),
+            rpe: (isWarmup ? 4 : lastRPE).toString(),
           },
         ],
       };
@@ -303,21 +328,12 @@ const LogSession: React.FC = () => {
     }
   }, []);
 
-  const updateSet = useCallback((exIndex: number, setIndex: number, field: keyof WorkoutSet, value: string) => {
+  const updateSet = useCallback((exIndex: number, setIndex: number, field: keyof WorkoutSetUI, value: string) => {
+    // Permit intermediate characters like a single decimal point or empty string
+    const sanitized = value.replace(/[^0-9.]/g, '');
+    if (sanitized.split('.').length > 2) return; // Only one decimal point
+
     setExercises(currentExercises => {
-      const currentSet = currentExercises[exIndex].sets[setIndex];
-      const validation = validateWorkoutSet(
-        field === 'weight' ? value : currentSet.weight,
-        field === 'reps' ? value : currentSet.reps,
-        field === 'rpe' ? value : currentSet.rpe
-      );
-
-      if (!validation.valid) {
-        // Silently ignore invalid input, don't update state
-        return currentExercises;
-      }
-
-      const numValue = parseFloat(value);
       return currentExercises.map((exercise, exerciseIndex) => {
         if (exerciseIndex !== exIndex) return exercise;
 
@@ -325,7 +341,7 @@ const LogSession: React.FC = () => {
           ...exercise,
           sets: exercise.sets.map((set, currentSetIndex) => (
             currentSetIndex === setIndex
-              ? { ...set, [field]: isNaN(numValue) ? 0 : numValue }
+              ? { ...set, [field]: sanitized }
               : set
           )),
         };
@@ -340,7 +356,7 @@ const LogSession: React.FC = () => {
       const nextSets = exercise.sets.filter((_, currentSetIndex) => currentSetIndex !== setIndex);
       return {
         ...exercise,
-        sets: nextSets.length > 0 ? nextSets : [{ weight: 0, reps: 0, rpe: 7 }],
+        sets: nextSets.length > 0 ? nextSets : [{ weight: '0', reps: '0', rpe: '7' }],
       };
     }));
   }, []);
@@ -365,7 +381,16 @@ const LogSession: React.FC = () => {
       return;
     }
 
-    const processedExercises = normalizeExercisesForSave(exercises);
+    const exercisesForSaving: ExerciseSession[] = exercises.map(ex => ({
+      ...ex,
+      sets: ex.sets.map(s => ({
+        weight: parseFloat(s.weight) || 0,
+        reps: parseInt(s.reps) || 0,
+        rpe: parseFloat(s.rpe) || 0
+      }))
+    }));
+
+    const processedExercises = normalizeExercisesForSave(exercisesForSaving);
 
     if (processedExercises.length === 0) {
       alert('Add at least one exercise with sets logged.');
@@ -464,7 +489,7 @@ const LogSession: React.FC = () => {
         <LayoutGroup>
           <AnimatePresence mode="popLayout">
             {exercises.map((ex, exIndex) => {
-              const suggestion = suggestions[ex.exerciseName.toLowerCase().trim()];
+              const suggestion = suggestions[normalizeExerciseName(ex.exerciseName)];
               return (
                 <ExerciseCard
                   key={`ex-${exIndex}`}

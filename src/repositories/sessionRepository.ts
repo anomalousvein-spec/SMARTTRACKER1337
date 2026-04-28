@@ -1,12 +1,10 @@
 import { db } from '../db/database';
+import { normalizeExerciseName } from '../utils/normalization';
 import type { Session } from '../db/models';
 import { GLOBAL_USER_SETTINGS_ID } from '../utils/userSettings';
 import { getUserSettings } from '../progression/settings';
 import { rebuildCoachStateFromHistory, updateCoachStateFromSession } from './coachStateRepository';
 
-function normalizeExerciseName(exerciseName: string) {
-  return exerciseName.toLowerCase().trim();
-}
 
 export async function getSessionsNewestFirst(): Promise<Session[]> {
   return db.sessions.orderBy('date').reverse().toArray();

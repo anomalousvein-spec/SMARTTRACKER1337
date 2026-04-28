@@ -102,7 +102,7 @@ const App: React.FC = () => {
         )}>
           <div className="flex min-w-0 items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-theme-accent shadow-lg shadow-blue-500/20">
-               <ActivityIcon size={18} className="text-white" />
+               <BrandIcon size={18} className="text-white" />
             </div>
             <div className="min-w-0">
               <h1 className="truncate text-base font-black leading-tight text-theme-text-primary sm:text-lg">SmartTracker</h1>
@@ -159,7 +159,7 @@ const App: React.FC = () => {
 };
 
 // Internal icon component to avoid name conflict with lucide-react Activity
-const ActivityIcon = ({ size, className }: { size: number, className?: string }) => (
+const BrandIcon = ({ size, className }: { size: number, className?: string }) => (
   <svg
     width={size}
     height={size}

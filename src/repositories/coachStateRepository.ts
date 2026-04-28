@@ -1,4 +1,5 @@
 import { db } from '../db/database';
+import { normalizeExerciseName } from '../utils/normalization';
 import type { ExerciseCoachState, GlobalCoachState, Session } from '../db/models';
 
 const GLOBAL_COACH_STATE_ID = 'global' as const;
@@ -12,15 +13,12 @@ function roundBias(value: number) {
 }
 
 function getExerciseCoachStateId(exerciseName: string) {
-  return `exercise:${exerciseName.toLowerCase().trim()}`;
+  return `exercise:${normalizeExerciseName(exerciseName)}`;
 }
 
-function normalizeExerciseName(exerciseName: string) {
-  return exerciseName.toLowerCase().trim();
-}
 
 export async function getExerciseCoachState(exerciseName: string): Promise<ExerciseCoachState> {
-  const normalizedName = exerciseName.toLowerCase().trim();
+  const normalizedName = normalizeExerciseName(exerciseName);
   const existing = await db.coachStates.get(getExerciseCoachStateId(normalizedName)) as ExerciseCoachState | undefined;
 
   if (existing) {
