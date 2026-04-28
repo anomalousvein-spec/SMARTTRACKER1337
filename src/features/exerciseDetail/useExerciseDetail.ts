@@ -118,7 +118,7 @@ export function useExerciseDetail(name?: string) {
       }
     }
 
-    loadData();
+    void loadData();
 
     return () => {
       isActive = false;

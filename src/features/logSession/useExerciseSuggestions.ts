@@ -56,13 +56,19 @@ export function useExerciseSuggestions(
         clearTimeout(debounceTimer.current[exerciseName]);
       }
 
-      debounceTimer.current[exerciseName] = setTimeout(() => {
-        updateSuggestion(exerciseName);
+      const timerId = setTimeout(() => {
+        void updateSuggestion(exerciseName);
       }, 500);
+      
+      debounceTimer.current[exerciseName] = timerId;
     });
 
     return () => {
-      Object.values(debounceTimer.current).forEach((timer) => clearTimeout(timer));
+      Object.keys(debounceTimer.current).forEach((exerciseName) => {
+        if (debounceTimer.current[exerciseName]) {
+          clearTimeout(debounceTimer.current[exerciseName]);
+        }
+      });
     };
   }, [
     exerciseNameSignature,
@@ -74,6 +80,7 @@ export function useExerciseSuggestions(
     readiness.bodyStatus,
     readiness.goal,
     readiness.timeAvailable,
+    readiness,
   ]);
 
   return suggestions;
