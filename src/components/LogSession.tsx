@@ -10,6 +10,7 @@ import {
   createDefaultPostSessionDebrief,
   createDefaultPreSessionCheckIn,
   deriveReadinessScores,
+  ensureDefaultCheckIn,
   normalizeExercisesForSave,
   validateCheckIn,
   validateDebrief,
@@ -404,9 +405,10 @@ const LogSession: React.FC = () => {
     }
 
     setIsSaving(true);
+    const normalizedCheckIn = ensureDefaultCheckIn(preSessionCheckIn);
     const session: Session = buildSession({
       exercises: processedExercises,
-      preSessionCheckIn,
+      preSessionCheckIn: normalizedCheckIn,
       postSessionDebrief,
       notes,
       programWeek,

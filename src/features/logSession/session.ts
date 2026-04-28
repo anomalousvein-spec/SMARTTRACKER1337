@@ -63,6 +63,19 @@ export function validateCheckIn(input: PreSessionCheckIn) {
   return { valid: errors.length === 0, errors };
 }
 
+export function ensureDefaultCheckIn(input: PreSessionCheckIn | undefined): PreSessionCheckIn {
+  if (!input) {
+    return createDefaultPreSessionCheckIn();
+  }
+  return {
+    recovery: input.recovery || 'okay',
+    energy: input.energy || 'medium',
+    bodyStatus: input.bodyStatus || 'normal_soreness',
+    goal: input.goal || 'standard',
+    timeAvailable: input.timeAvailable || 'normal',
+  };
+}
+
 export function validateDebrief(input: PostSessionDebrief) {
   const errors: string[] = [];
 
