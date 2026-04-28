@@ -224,7 +224,7 @@ const LogSession: React.FC = () => {
       }
       setProgramWeek(settings.lastUsedWeek || 1);
     }
-    init();
+    void init();
   }, [hasPrefill]);
 
   const handleExerciseSelect = useCallback((exercise: Exercise) => {
@@ -277,7 +277,7 @@ const LogSession: React.FC = () => {
       setNotes('');
       setDraftSavedAt(null);
       setIsDraftSaving(false);
-      getUserSettings().then(s => setProgramWeek(s.lastUsedWeek || 1));
+      getUserSettings().then(s => setProgramWeek(s.lastUsedWeek ?? 1));
     }
   }, []);
 

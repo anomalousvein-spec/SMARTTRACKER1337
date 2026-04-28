@@ -39,7 +39,7 @@ const Settings: React.FC<SettingsProps> = ({ theme, selectTheme }) => {
       setTrainingSessions(sessions);
       setHideDashboardSuggestions(localStorage.getItem(DASHBOARD_SUGGESTIONS_VISIBILITY_KEY) === 'true');
     }
-    loadSettings();
+    void loadSettings();
   }, []);
 
   const handleUnitChange = async (newUnit: 'lbs' | 'kg') => {
@@ -63,7 +63,7 @@ const Settings: React.FC<SettingsProps> = ({ theme, selectTheme }) => {
       return;
     }
 
-    const validExercises = (editingSession.exercises || []).filter(e => e.exerciseName.trim() !== '');
+    const validExercises = (editingSession.exercises ?? []).filter(e => e.exerciseName.trim() !== '');
     if (validExercises.length === 0) {
       alert('Please add at least one exercise to the split.');
       return;
@@ -95,7 +95,7 @@ const Settings: React.FC<SettingsProps> = ({ theme, selectTheme }) => {
     const name = exercise.name;
     const id = exercise.id?.toString();
 
-    const exercises = [...(editingSession.exercises || [])];
+    const exercises = [...(editingSession.exercises ?? [])];
     if (showPicker === -1) {
       exercises.push({ exerciseName: name, exerciseId: id, targetSets: 3, targetRepsRange: [6, 12] });
     } else if (showPicker !== null) {
@@ -375,7 +375,7 @@ const Settings: React.FC<SettingsProps> = ({ theme, selectTheme }) => {
                       <button onClick={() => setEditingSession(s)} className="w-10 h-10 flex items-center justify-center bg-theme-bg-tertiary text-blue-500 rounded-xl  border border-white/5 hover:scale-110 transition-transform">
                          <Edit2 size={16} />
                       </button>
-                      <button onClick={() => handleDeleteSession(s.id!)} className="w-10 h-10 flex items-center justify-center bg-theme-bg-tertiary text-red-400 rounded-xl  border border-white/5 hover:scale-110 transition-transform">
+                      <button onClick={() => s.id && handleDeleteSession(s.id)} className="w-10 h-10 flex items-center justify-center bg-theme-bg-tertiary text-red-400 rounded-xl  border border-white/5 hover:scale-110 transition-transform">
                          <Trash2 size={16} />
                       </button>
                     </div>

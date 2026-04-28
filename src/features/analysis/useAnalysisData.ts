@@ -169,7 +169,7 @@ export function useAnalysisData() {
       }
     }
 
-    load();
+    void load();
 
     return () => {
       isActive = false;

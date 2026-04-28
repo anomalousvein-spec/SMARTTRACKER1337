@@ -46,7 +46,7 @@ const ExerciseLibrary: React.FC<Props> = ({ onSelect, onClose, isPicker = false 
   });
 
   useEffect(() => {
-    loadExercises();
+    void loadExercises();
   }, []);
 
   async function loadExercises() {
@@ -79,8 +79,8 @@ const ExerciseLibrary: React.FC<Props> = ({ onSelect, onClose, isPicker = false 
   }, [exercises, search, filterCategory, filterMuscle]);
 
   const handleAddCustom = async () => {
-    const normalizedName = customEx.name?.trim() || '';
-    if (!normalizedName || (customEx.primaryMuscles?.length || 0) === 0) return;
+    const normalizedName = customEx.name?.trim() ?? '';
+    if (!normalizedName || (customEx.primaryMuscles?.length ?? 0) === 0) return;
 
     try {
       if (await exerciseNameExists(normalizedName)) {
@@ -109,7 +109,7 @@ const ExerciseLibrary: React.FC<Props> = ({ onSelect, onClose, isPicker = false 
       if (onSelect && newEx) {
         onSelect(newEx);
       } else {
-        loadExercises();
+        void loadExercises();
       }
     } catch (err) {
       console.error("Failed to add custom exercise", err);
@@ -119,7 +119,7 @@ const ExerciseLibrary: React.FC<Props> = ({ onSelect, onClose, isPicker = false 
   const toggleMuscleSelection = (muscle: string, isPrimary: boolean) => {
     setCustomEx(prev => {
       const key = isPrimary ? 'primaryMuscles' : 'secondaryMuscles';
-      const current = prev[key] || [];
+      const current = prev[key] ?? [];
       const updated = current.includes(muscle)
         ? current.filter(m => m !== muscle)
         : [...current, muscle];
@@ -354,7 +354,7 @@ const ExerciseLibrary: React.FC<Props> = ({ onSelect, onClose, isPicker = false 
 
                 <button
                   onClick={handleAddCustom}
-                  disabled={!customEx.name || (customEx.primaryMuscles?.length || 0) === 0}
+                  disabled={!customEx.name || (customEx.primaryMuscles?.length ?? 0) === 0}
                   className="w-full bg-theme-accent py-5 rounded-2xl text-white font-black uppercase tracking-[0.3em] text-[11px]   active:scale-[0.98] transition-all disabled:opacity-30 disabled:grayscale mt-4"
                 >
                   Save Exercise
