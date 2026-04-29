@@ -101,7 +101,7 @@ const App: React.FC = () => {
           isStandalone && "border-b border-white/10 bg-theme-bg-primary/92"
         )}>
           <div className="flex min-w-0 items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-theme-accent shadow-lg shadow-blue-500/20">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-theme-accent to-blue-600 shadow-lg shadow-blue-500/20">
                <BrandIcon size={18} className="text-white" />
             </div>
             <div className="min-w-0">
@@ -125,7 +125,7 @@ const App: React.FC = () => {
           </div>
           <button
             onClick={toggleTheme}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/5 bg-theme-bg-tertiary text-theme-text-primary transition-all active:scale-90"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/5 bg-theme-bg-tertiary text-theme-text-primary shadow-sm transition-all hover:shadow-md active:scale-90"
             aria-label="Change theme"
           >
             <Palette size={18} />
@@ -203,7 +203,7 @@ const NavLink: React.FC<{ to: string; icon: React.ReactNode; label: string }> = 
       {isActive && (
         <m.span
           layoutId="nav-dot"
-          className="absolute right-4 top-1.5 h-1.5 w-1.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,1)]"
+          className="absolute right-4 top-1.5 h-1.5 w-1.5 rounded-full bg-theme-accent shadow-[0_0_10px_rgba(59,130,246,0.8)]"
         ></m.span>
       )}
     </Link>

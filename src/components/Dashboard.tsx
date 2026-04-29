@@ -151,7 +151,7 @@ const Dashboard: React.FC = () => {
         </div>
         <Link
           to="/log"
-          className="flex h-12 w-12 items-center justify-center rounded-2xl bg-theme-accent text-white transition-all hover:bg-blue-700 active:scale-90"
+          className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-theme-accent to-blue-600 text-white shadow-lg shadow-blue-500/20 transition-all hover:shadow-xl active:scale-90"
           aria-label="Log new workout"
         >
           <Plus size={24} />
@@ -239,7 +239,7 @@ const Dashboard: React.FC = () => {
           <div className="mt-6">
             <button
               onClick={handleCoachFocusAction}
-              className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-[11px] font-black uppercase tracking-[0.14em] text-slate-900 transition-all hover:bg-blue-50 active:scale-95"
+              className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-white to-blue-50 px-5 py-3 text-[11px] font-black uppercase tracking-[0.14em] text-slate-900 shadow-sm transition-all hover:shadow-md active:scale-95"
             >
               <Play size={14} fill="currentColor" />
               {coachFocus.ctaLabel}

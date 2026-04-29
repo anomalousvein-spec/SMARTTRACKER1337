@@ -12,6 +12,8 @@
 
   --color-theme-accent: var(--accent);
   --color-theme-accent-variant: var(--accent-variant);
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 @layer base {
@@ -62,12 +64,11 @@
   }
 
   body {
-    @apply antialiased overflow-x-hidden;
+    @apply antialiased overflow-x-hidden font-sans;
     min-height: 100dvh;
     background-color: var(--bg-primary);
     color: var(--text-primary);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
@@ -119,11 +120,11 @@
 
 @utility card {
   background: var(--bg-secondary);
-  @apply rounded-3xl transition-all duration-200 border border-white/10;
+  @apply rounded-3xl border border-white/10 shadow-sm transition-all duration-200;
 }
 
 @utility card-hover {
-  @apply hover:bg-white/[0.02] active:scale-[0.98] transition-all duration-200;
+  @apply hover:bg-white/[0.02] hover:shadow-md active:scale-[0.98] transition-all duration-200;
 }
 
 @utility glass-morphism {
@@ -162,7 +163,13 @@ input[type='range'] {
 }
 
 input[type='range']::-webkit-slider-thumb {
-  @apply appearance-none w-6 h-6 rounded-full  border-4 transition-transform active:scale-125;
+  @apply appearance-none w-5 h-5 rounded-full border-4 transition-transform active:scale-125 shadow-lg;
+  background: var(--accent);
+  border-color: var(--bg-primary);
+}
+
+input[type='range']::-moz-range-thumb {
+  @apply appearance-none w-5 h-5 rounded-full border-4 transition-transform active:scale-125;
   background: var(--accent);
   border-color: var(--bg-primary);
 }
@@ -172,14 +179,20 @@ input[type='range']::-webkit-slider-thumb {
   border-color: var(--glass-border);
 }
 
+/* Improved focus states for accessibility */
+*:focus-visible {
+  @apply outline-none ring-2 ring-theme-accent ring-offset-2 ring-offset-theme-bg-primary;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 4px;
+  height: 4px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--bg-tertiary);
-  @apply rounded-full transition-colors;
+  @apply rounded-full transition-colors hover:bg-theme-text-tertiary;
 }
