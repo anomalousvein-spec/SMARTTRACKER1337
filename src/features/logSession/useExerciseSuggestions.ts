@@ -62,18 +62,25 @@ export function useExerciseSuggestions(
     });
 
     return () => {
-      const timersToClear = { ...debounceTimer.current };
-      Object.keys(timersToClear).forEach((exerciseName) => {
-        if (timersToClear[exerciseName]) {
-          clearTimeout(timersToClear[exerciseName]);
+      // Cleanup: clear all pending timers on unmount or re-render
+      const currentTimers = { ...debounceTimer.current };
+      Object.keys(currentTimers).forEach((exerciseName) => {
+        if (currentTimers[exerciseName]) {
+          clearTimeout(currentTimers[exerciseName]);
         }
       });
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- readiness object changes frequently; individual properties are tracked in dependency array
   }, [
     exerciseNameSignature,
     deferredExerciseNames,
     programWeek,
-    readiness,
+    readiness.bodyStatus,
+    readiness.energy,
+    readiness.goal,
+    readiness.sleep,
+    readiness.soreness,
+    readiness.timeAvailable,
   ]);
 
   return suggestions;
