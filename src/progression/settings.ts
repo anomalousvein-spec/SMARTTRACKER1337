@@ -25,17 +25,19 @@ export const VOLUME_CAPS_BY_LEVEL = {
 
 
 export const MUSCLE_LANDMARKS = {
-  chest:     { mev: 9,  mav: 15, mrv: 21 },
-  back:      { mev: 11, mav: 17, mrv: 23 },
-  quads:     { mev: 9,  mav: 15, mrv: 21 },
-  hamstrings:{ mev: 7,  mav: 13, mrv: 19 },
-  glutes:    { mev: 4,  mav: 10, mrv: 16 },
-  core:      { mev: 4,  mav: 8,  mrv: 14 },
-  calves:    { mev: 6,  mav: 12, mrv: 18 },
-  shoulders: { mev: 7,  mav: 13, mrv: 20 },
-  triceps:   { mev: 7,  mav: 12, mrv: 18 },
-  biceps:    { mev: 7,  mav: 12, mrv: 18 },
-  'rear delts': { mev: 7,  mav: 12, mrv: 18 },
+  chest:     { mev: 9,  mav: 12, mrv: 18 },
+  back:      { mev: 10, mav: 14, mrv: 20 },
+  quads:     { mev: 9,  mav: 12, mrv: 16 },
+  hamstrings:{ mev: 7,  mav: 10, mrv: 14 },
+  glutes:    { mev: 3,  mav: 4,  mrv: 10 },
+  core:      { mev: 12, mav: 16, mrv: 22 },
+  calves:    { mev: 9,  mav: 12, mrv: 16 },
+  shoulders: { mev: 12, mav: 16, mrv: 22 },
+  triceps:   { mev: 7,  mav: 10, mrv: 14 },
+  biceps:    { mev: 10, mav: 14, mrv: 18 },
+  'rear delts': { mev: 12, mav: 16, mrv: 22 },
+  'front delts': { mev: 4,  mav: 6,  mrv: 10 },
+  traps:     { mev: 9,  mav: 12, mrv: 18 },
 };
 
 export type TrainingLevel = keyof typeof VOLUME_CAPS_BY_LEVEL;
