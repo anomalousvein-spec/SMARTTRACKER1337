@@ -86,30 +86,36 @@ const ExerciseDetail: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3">
               <div className="flex items-center gap-2 text-emerald-300">
-                <Flame size={16} />
-                <p className="text-[10px] font-black uppercase tracking-[0.18em]">Sessions</p>
+                <Flame size={14} />
+                <p className="text-[9px] font-black uppercase tracking-[0.18em]">Sessions</p>
               </div>
-              <p className="mt-3 text-2xl font-black leading-none">{sessionCount}</p>
-              <p className="mt-1 text-[11px] font-bold text-theme-text-secondary">logged blocks</p>
+              <div className="text-right">
+                <p className="text-lg font-black leading-none">{sessionCount}</p>
+                <p className="mt-0.5 text-[10px] font-bold text-theme-text-secondary">logged blocks</p>
+              </div>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3">
               <div className="flex items-center gap-2 text-blue-200">
-                <Activity size={16} />
-                <p className="text-[10px] font-black uppercase tracking-[0.18em]">Volume</p>
+                <Activity size={14} />
+                <p className="text-[9px] font-black uppercase tracking-[0.18em]">Volume</p>
               </div>
-              <p className="mt-3 text-2xl font-black leading-none">{formatMetric(lastVolume)}</p>
-              <p className="mt-1 text-[11px] font-bold text-theme-text-secondary">last session tonnage</p>
+              <div className="text-right">
+                <p className="text-lg font-black leading-none">{formatMetric(lastVolume)}</p>
+                <p className="mt-0.5 text-[10px] font-bold text-theme-text-secondary">last session tonnage</p>
+              </div>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3">
               <div className="flex items-center gap-2 text-orange-300">
-                <TrendingUp size={16} />
-                <p className="text-[10px] font-black uppercase tracking-[0.18em]">Recent Peak</p>
+                <TrendingUp size={14} />
+                <p className="text-[9px] font-black uppercase tracking-[0.18em]">Recent Peak</p>
               </div>
-              <p className="mt-3 text-2xl font-black leading-none">{formatMetric(lastPeak)}</p>
-              <p className="mt-1 text-[11px] font-bold text-theme-text-secondary">latest est. 1RM</p>
+              <div className="text-right">
+                <p className="text-lg font-black leading-none">{formatMetric(lastPeak)}</p>
+                <p className="mt-0.5 text-[10px] font-bold text-theme-text-secondary">latest est. 1RM</p>
+              </div>
             </div>
           </div>
         </div>

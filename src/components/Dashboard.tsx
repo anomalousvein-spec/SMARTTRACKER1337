@@ -184,32 +184,38 @@ const Dashboard: React.FC = () => {
             <p className="mt-3 text-[11px] font-black uppercase tracking-[0.16em] text-blue-100">{coachFocus.action}</p>
           </div>
 
-          <div className="mt-6 grid grid-cols-3 gap-3">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="mt-4 space-y-2">
+            <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3">
               <div className="flex items-center gap-2 text-orange-300">
-                <Flame size={16} />
-                <p className="text-[10px] font-black uppercase tracking-[0.18em]">Streak</p>
+                <Flame size={14} />
+                <p className="text-[9px] font-black uppercase tracking-[0.18em]">Streak</p>
               </div>
-              <p className="mt-3 text-2xl font-black leading-none">{streak}</p>
-              <p className="mt-1 text-[11px] font-bold text-theme-text-secondary">days active</p>
+              <div className="text-right">
+                <p className="text-lg font-black leading-none">{streak}</p>
+                <p className="mt-0.5 text-[10px] font-bold text-theme-text-secondary">days active</p>
+              </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3">
               <div className="flex items-center gap-2 text-emerald-300">
-                <Gauge size={16} />
-                <p className="text-[10px] font-black uppercase tracking-[0.18em]">Volume</p>
+                <Gauge size={14} />
+                <p className="text-[9px] font-black uppercase tracking-[0.18em]">Volume</p>
               </div>
-              <p className="mt-3 text-2xl font-black leading-none">{formatVolume(weeklyVolume)}</p>
-              <p className="mt-1 text-[11px] font-bold text-theme-text-secondary">{weeklyTrend} this week</p>
+              <div className="text-right">
+                <p className="text-lg font-black leading-none">{formatVolume(weeklyVolume)}</p>
+                <p className="mt-0.5 text-[10px] font-bold text-theme-text-secondary">{weeklyTrend} this week</p>
+              </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3">
               <div className="flex items-center gap-2 text-blue-200">
-                <Layers3 size={16} />
-                <p className="text-[10px] font-black uppercase tracking-[0.18em]">Focus</p>
+                <Layers3 size={14} />
+                <p className="text-[9px] font-black uppercase tracking-[0.18em]">Focus</p>
               </div>
-              <p className="mt-3 text-2xl font-black leading-none">{suggestions.length}</p>
-              <p className="mt-1 text-[11px] font-bold text-theme-text-secondary">target movements</p>
+              <div className="text-right">
+                <p className="text-lg font-black leading-none">{suggestions.length}</p>
+                <p className="mt-0.5 text-[10px] font-bold text-theme-text-secondary">target movements</p>
+              </div>
             </div>
           </div>
 
@@ -249,23 +255,27 @@ const Dashboard: React.FC = () => {
       </m.section>
 
       <section aria-label="Volume statistics">
-        <m.div variants={itemVariants} className="grid grid-cols-2 gap-3">
-          <div className="card flex items-center gap-3 rounded-2xl border border-white/5 bg-theme-bg-secondary p-4">
-            <div className="rounded-2xl bg-orange-500/10 p-3 text-orange-500" aria-hidden="true">
-              <Flame size={22} />
-            </div>
-            <div>
-              <p className="mb-1 text-[11px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Streak</p>
-              <p className="text-xl font-black leading-none text-theme-text-primary">{streak} Days</p>
+        <m.div variants={itemVariants} className="space-y-2">
+          <div className="card flex items-center justify-between rounded-xl border border-white/5 bg-theme-bg-secondary px-4 py-3">
+            <div className="flex items-center gap-2">
+              <div className="rounded-xl bg-orange-500/10 p-2.5 text-orange-500" aria-hidden="true">
+                <Flame size={18} />
+              </div>
+              <div>
+                <p className="text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Streak</p>
+                <p className="text-lg font-black leading-none text-theme-text-primary">{streak} Days</p>
+              </div>
             </div>
           </div>
-          <div className="card flex items-center gap-3 rounded-2xl border border-white/5 bg-theme-bg-secondary p-4">
-            <div className="rounded-2xl bg-blue-500/10 p-3 text-blue-500" aria-hidden="true">
-              <Trophy size={22} />
-            </div>
-            <div>
-              <p className="mb-1 text-[11px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Level</p>
-              <p className="text-xl font-black leading-none text-theme-text-primary">{userLevel}</p>
+          <div className="card flex items-center justify-between rounded-xl border border-white/5 bg-theme-bg-secondary px-4 py-3">
+            <div className="flex items-center gap-2">
+              <div className="rounded-xl bg-blue-500/10 p-2.5 text-blue-500" aria-hidden="true">
+                <Trophy size={18} />
+              </div>
+              <div>
+                <p className="text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Level</p>
+                <p className="text-lg font-black leading-none text-theme-text-primary">{userLevel}</p>
+              </div>
             </div>
           </div>
         </m.div>
