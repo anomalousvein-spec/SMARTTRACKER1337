@@ -42,17 +42,21 @@ export const MUSCLE_MAPPING: Record<string, { primary: string; secondary?: strin
   'back extension (machine)': { primary: 'back', secondary: ['hamstrings', 'glutes'] },
   'dumbbell pullover': { primary: 'back', secondary: ['chest'] },
 
-  // Shoulders (Consolidated key for MRV matching)
-  'overhead press': { primary: 'shoulders', secondary: ['triceps'] },
+  // Shoulders - Front Delts
+  'overhead press': { primary: 'front delts', secondary: ['triceps', 'traps'] },
+  'machine shoulder press': { primary: 'front delts', secondary: ['triceps'] },
+  'front raise': { primary: 'front delts' },
+  
+  // Shoulders - Side Delts
   'lateral raise': { primary: 'shoulders' },
   'cable lateral raise': { primary: 'shoulders' },
-  'machine shoulder press': { primary: 'shoulders', secondary: ['triceps'] },
-  'rear delt fly': { primary: 'shoulders' },
-  'cable reverse fly': { primary: 'shoulders' },
-  'front raise': { primary: 'shoulders' },
-  'face pull': { primary: 'shoulders', secondary: ['back'] },
-  'cable face pull': { primary: 'shoulders', secondary: ['back'] },
   'cable upright row': { primary: 'shoulders', secondary: ['traps'] },
+  
+  // Shoulders - Rear Delts
+  'rear delt fly': { primary: 'rear delts' },
+  'cable reverse fly': { primary: 'rear delts' },
+  'face pull': { primary: 'rear delts', secondary: ['back', 'traps'] },
+  'cable face pull': { primary: 'rear delts', secondary: ['back', 'traps'] },
 
   // Hamstrings
   'romanian deadlift': { primary: 'hamstrings', secondary: ['glutes', 'back'] },
@@ -116,11 +120,14 @@ export function getPrimaryMuscle(exerciseName: string): string {
   }
   if (normalized.includes('row')) return 'back';
   if (normalized.includes('press')) {
-    if (normalized.includes('shoulder') || normalized.includes('overhead')) return 'shoulders';
+    if (normalized.includes('shoulder') || normalized.includes('overhead')) return 'front delts';
     return 'chest';
   }
   if (normalized.includes('curl')) return 'biceps';
   if (normalized.includes('extension')) return 'triceps';
+  if (normalized.includes('lateral')) return 'shoulders';
+  if (normalized.includes('rear delt') || normalized.includes('reverse fly')) return 'rear delts';
+  if (normalized.includes('face pull')) return 'rear delts';
 
   return 'unknown';
 }
