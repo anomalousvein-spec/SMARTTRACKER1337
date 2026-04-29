@@ -261,32 +261,38 @@ const Analysis: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div className="flex items-center justify-center gap-2 text-center text-blue-200">
-                <Flame size={16} />
-                <p className="text-[10px] font-black uppercase tracking-[0.18em]">Volume</p>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+              <div className="flex items-center gap-2 text-blue-200">
+                <Flame size={14} />
+                <p className="text-[9px] font-black uppercase tracking-[0.18em]">Volume</p>
               </div>
-              <p className="mt-3 text-center text-[1.65rem] font-black leading-none">{displayedWeek ? formatMetric(displayedWeek.totalVolume) : '--'}</p>
-              <p className="mt-1 text-center text-[11px] font-bold text-theme-text-secondary">weekly tonnage</p>
+              <div className="text-right">
+                <p className="text-lg font-black leading-none">{displayedWeek ? formatMetric(displayedWeek.totalVolume) : '--'}</p>
+                <p className="mt-0.5 text-[10px] font-bold text-theme-text-secondary">weekly tonnage</p>
+              </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div className="flex items-center justify-center gap-2 text-center text-emerald-300">
-                <Gauge size={16} />
-                <p className="text-[10px] font-black uppercase tracking-[0.18em]">Intensity</p>
+            <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+              <div className="flex items-center gap-2 text-emerald-300">
+                <Gauge size={14} />
+                <p className="text-[9px] font-black uppercase tracking-[0.18em]">Intensity</p>
               </div>
-              <p className="mt-3 text-center text-[1.65rem] font-black leading-none">{displayedWeek ? formatMetric(displayedWeek.avgWeight) : '--'}</p>
-              <p className="mt-1 text-center text-[11px] font-bold text-theme-text-secondary">avg load {unit}</p>
+              <div className="text-right">
+                <p className="text-lg font-black leading-none">{displayedWeek ? formatMetric(displayedWeek.avgWeight) : '--'}</p>
+                <p className="mt-0.5 text-[10px] font-bold text-theme-text-secondary">avg load {unit}</p>
+              </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div className="flex items-center justify-center gap-2 text-center text-orange-300">
-                <TrendingUp size={16} />
-                <p className="text-[10px] font-black uppercase tracking-[0.18em]">Peak</p>
+            <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+              <div className="flex items-center gap-2 text-orange-300">
+                <TrendingUp size={14} />
+                <p className="text-[9px] font-black uppercase tracking-[0.18em]">Peak</p>
               </div>
-              <p className="mt-3 text-center text-[1.65rem] font-black leading-none">{displayedWeek ? formatMetric(displayedWeek.bestWeight) : '--'}</p>
-              <p className="mt-1 text-center text-[11px] font-bold text-theme-text-secondary">best weight {unit}</p>
+              <div className="text-right">
+                <p className="text-lg font-black leading-none">{displayedWeek ? formatMetric(displayedWeek.bestWeight) : '--'}</p>
+                <p className="mt-0.5 text-[10px] font-bold text-theme-text-secondary">best weight {unit}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -321,18 +327,18 @@ const Analysis: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-3xl border border-white/5 bg-theme-bg-secondary p-4">
-            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Global Recovery Trend</p>
-            <p className="mt-2 text-xl font-black text-theme-text-primary">{formatBias(globalCoachState.recoveryTrend)}</p>
-            <p className="mt-1 text-xs font-bold text-theme-text-tertiary">{recoveryTrendLabel}</p>
-            <p className="mt-2 text-[10px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">{globalCoachRecency}</p>
+        <div className="space-y-2">
+          <div className="rounded-xl border border-white/5 bg-theme-bg-secondary px-4 py-3">
+            <p className="text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Global Recovery Trend</p>
+            <p className="mt-1 text-lg font-black text-theme-text-primary">{formatBias(globalCoachState.recoveryTrend)}</p>
+            <p className="mt-0.5 text-xs font-bold text-theme-text-tertiary">{recoveryTrendLabel}</p>
+            <p className="mt-1.5 text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">{globalCoachRecency}</p>
           </div>
-          <div className="rounded-3xl border border-white/5 bg-theme-bg-secondary p-4">
-            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Global Fatigue Trend</p>
-            <p className="mt-2 text-xl font-black text-theme-text-primary">{formatBias(globalCoachState.fatigueTrend)}</p>
-            <p className="mt-1 text-xs font-bold text-theme-text-tertiary">{fatigueTrendLabel}</p>
-            <p className="mt-2 text-[10px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">{globalCoachRecency}</p>
+          <div className="rounded-xl border border-white/5 bg-theme-bg-secondary px-4 py-3">
+            <p className="text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Global Fatigue Trend</p>
+            <p className="mt-1 text-lg font-black text-theme-text-primary">{formatBias(globalCoachState.fatigueTrend)}</p>
+            <p className="mt-0.5 text-xs font-bold text-theme-text-tertiary">{fatigueTrendLabel}</p>
+            <p className="mt-1.5 text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">{globalCoachRecency}</p>
           </div>
         </div>
 
@@ -372,22 +378,22 @@ const Analysis: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                    <div className="rounded-2xl bg-theme-bg-tertiary p-3">
-                      <p className="text-[10px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Confidence</p>
-                      <p className="mt-2 text-lg font-black text-theme-text-primary">{formatBias(state.confidenceBias)}</p>
+                  <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    <div className="rounded-xl bg-theme-bg-tertiary px-3 py-2.5">
+                      <p className="text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Confidence</p>
+                      <p className="mt-1 text-base font-black text-theme-text-primary">{formatBias(state.confidenceBias)}</p>
                     </div>
-                    <div className="rounded-2xl bg-theme-bg-tertiary p-3">
-                      <p className="text-[10px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Tolerance</p>
-                      <p className="mt-2 text-lg font-black text-theme-text-primary">{formatBias(state.toleranceBias)}</p>
+                    <div className="rounded-xl bg-theme-bg-tertiary px-3 py-2.5">
+                      <p className="text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Tolerance</p>
+                      <p className="mt-1 text-base font-black text-theme-text-primary">{formatBias(state.toleranceBias)}</p>
                     </div>
-                    <div className="rounded-2xl bg-theme-bg-tertiary p-3">
-                      <p className="text-[10px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Pain Watch</p>
-                      <p className="mt-2 text-lg font-black text-theme-text-primary">{state.painPenalty.toFixed(2)}</p>
+                    <div className="rounded-xl bg-theme-bg-tertiary px-3 py-2.5">
+                      <p className="text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Pain Watch</p>
+                      <p className="mt-1 text-base font-black text-theme-text-primary">{state.painPenalty.toFixed(2)}</p>
                     </div>
-                    <div className="rounded-2xl bg-theme-bg-tertiary p-3">
-                      <p className="text-[10px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Swap Lean</p>
-                      <p className="mt-2 text-lg font-black text-theme-text-primary">{state.swapPreference.toFixed(2)}</p>
+                    <div className="rounded-xl bg-theme-bg-tertiary px-3 py-2.5">
+                      <p className="text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Swap Lean</p>
+                      <p className="mt-1 text-base font-black text-theme-text-primary">{state.swapPreference.toFixed(2)}</p>
                     </div>
                   </div>
                 </div>
@@ -486,16 +492,20 @@ const Analysis: React.FC = () => {
                         {entryTrend.label}
                       </div>
                     </div>
-                    <div className="mt-4 grid grid-cols-2 gap-3">
-                      <div className="rounded-2xl bg-theme-bg-tertiary p-4">
-                        <p className="text-[10px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Volume</p>
-                        <p className="mt-2 tabular-nums text-xl font-black text-theme-accent dark:text-blue-400">{entry.totalVolume.toLocaleString()}</p>
-                        <p className="mt-1 text-xs font-bold text-theme-text-tertiary">Total tonnage</p>
+                    <div className="mt-3 space-y-2">
+                      <div className="flex items-center justify-between rounded-xl bg-theme-bg-tertiary px-4 py-3">
+                        <div>
+                          <p className="text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Volume</p>
+                          <p className="mt-0.5 tabular-nums text-lg font-black text-theme-accent dark:text-blue-400">{entry.totalVolume.toLocaleString()}</p>
+                        </div>
+                        <p className="text-[10px] font-bold text-theme-text-tertiary">Total tonnage</p>
                       </div>
-                      <div className="rounded-2xl bg-theme-bg-tertiary p-4">
-                        <p className="text-[10px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Intensity</p>
-                        <p className="mt-2 tabular-nums text-xl font-black text-theme-text-primary">{entry.avgWeight}<span className="ml-1 text-sm opacity-50">{unit}</span></p>
-                        <p className="mt-1 text-xs font-bold text-theme-text-tertiary">Average load</p>
+                      <div className="flex items-center justify-between rounded-xl bg-theme-bg-tertiary px-4 py-3">
+                        <div>
+                          <p className="text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Intensity</p>
+                          <p className="mt-0.5 tabular-nums text-lg font-black text-theme-text-primary">{entry.avgWeight}<span className="ml-1 text-sm opacity-50">{unit}</span></p>
+                        </div>
+                        <p className="text-[10px] font-bold text-theme-text-tertiary">Average load</p>
                       </div>
                     </div>
                   </div>
