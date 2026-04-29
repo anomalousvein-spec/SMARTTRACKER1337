@@ -404,11 +404,12 @@ export const ExerciseCard = React.memo(function ExerciseCard({
         </div>
 
         <div className="space-y-2.5">
-          <div className="grid grid-cols-4 gap-3 px-1 text-[8px] font-black uppercase tracking-[0.2em] text-theme-text-tertiary">
+          <div className="grid grid-cols-5 gap-2 px-1 text-[8px] font-black uppercase tracking-[0.2em] text-theme-text-tertiary">
             <div className="text-center">Set</div>
             <div className="text-center text-blue-500">Load ({unit})</div>
             <div className="text-center">Reps</div>
             <div className="text-center">RPE</div>
+            <div></div>
           </div>
           <AnimatePresence mode="popLayout">
             {exercise.sets.map((set, setIndex) => {
@@ -424,7 +425,7 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   key={`set-${exerciseIndex}-${setIndex}`}
-                  className="group/set relative grid grid-cols-4 items-center gap-3"
+                  className="group/set relative grid grid-cols-5 items-center gap-2"
                 >
                   <div className="flex h-10 w-full items-center justify-center rounded-xl bg-theme-bg-tertiary text-[11px] font-black text-theme-text-tertiary shadow-inner dark:text-theme-text-tertiary">
                     {setIndex + 1}
@@ -463,7 +464,7 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                       </m.div>
                     )}
                   </div>
-                  <div className="relative flex items-center">
+                  <div className="relative">
                     <input
                       type="text"
                       inputMode="decimal"
@@ -474,9 +475,11 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                       onKeyDown={onKeyDown}
                       onChange={(e) => onUpdateSet(exerciseIndex, setIndex, 'rpe', e.target.value)}
                     />
+                  </div>
+                  <div className="flex items-center justify-center">
                     <button
                       onClick={() => onRemoveSet(exerciseIndex, setIndex)}
-                      className="absolute right-1 flex h-7 w-7 items-center justify-center rounded-full bg-red-500 text-white shadow-sm transition-all active:scale-90"
+                      className="flex h-7 w-7 items-center justify-center rounded-full bg-red-500 text-white shadow-sm transition-all active:scale-90"
                       aria-label="Delete set"
                     >
                       <XCircle size={14} />
@@ -487,10 +490,10 @@ export const ExerciseCard = React.memo(function ExerciseCard({
             })}
           </AnimatePresence>
 
-          <div className="grid grid-cols-3 gap-1.5 pt-1">
-            <button onClick={() => onAddWarmupSet(exerciseIndex)} className="flex items-center justify-center gap-1 rounded-lg border border-white/5 bg-theme-bg-tertiary/50 py-1.5 text-[7px] font-black uppercase tracking-widest text-theme-text-tertiary transition-all hover:text-blue-500 active:scale-95"><Plus size={9} /> Warmup</button>
-            <button onClick={() => onAddWorkSet(exerciseIndex)} className="flex items-center justify-center gap-1 rounded-lg border border-white/5 bg-theme-bg-tertiary/50 py-1.5 text-[7px] font-black uppercase tracking-widest text-theme-text-tertiary transition-all hover:text-blue-500 active:scale-95"><Plus size={9} /> Work Set</button>
-            <button onClick={() => onCopyLastSet(exerciseIndex)} className="flex items-center justify-center gap-1 rounded-lg border border-white/5 bg-theme-bg-tertiary/50 py-1.5 text-[7px] font-black uppercase tracking-widest text-theme-text-tertiary transition-all hover:text-blue-500 active:scale-95"><Copy size={9} /> Copy</button>
+          <div className="grid grid-cols-5 gap-2 pt-1">
+            <button onClick={() => onAddWarmupSet(exerciseIndex)} className="col-span-1 flex items-center justify-center gap-1 rounded-lg border border-white/5 bg-theme-bg-tertiary/50 py-1.5 text-[7px] font-black uppercase tracking-widest text-theme-text-tertiary transition-all hover:text-blue-500 active:scale-95"><Plus size={9} /> Warmup</button>
+            <button onClick={() => onAddWorkSet(exerciseIndex)} className="col-span-2 flex items-center justify-center gap-1 rounded-lg border border-white/5 bg-theme-bg-tertiary/50 py-1.5 text-[7px] font-black uppercase tracking-widest text-theme-text-tertiary transition-all hover:text-blue-500 active:scale-95"><Plus size={9} /> Work Set</button>
+            <button onClick={() => onCopyLastSet(exerciseIndex)} className="col-span-2 flex items-center justify-center gap-1 rounded-lg border border-white/5 bg-theme-bg-tertiary/50 py-1.5 text-[7px] font-black uppercase tracking-widest text-theme-text-tertiary transition-all hover:text-blue-500 active:scale-95"><Copy size={9} /> Copy</button>
           </div>
         </div>
       </div>
