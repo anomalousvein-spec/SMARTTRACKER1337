@@ -109,26 +109,26 @@ export function CoachCheckInSection({
   checkIn: PreSessionCheckIn;
   onChange: (value: PreSessionCheckIn) => void;
 }) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
-    <section className="glass rounded-2xl border border-white/10 p-5 sm:p-6">
+    <section className="glass rounded-2xl border border-white/10 p-4 sm:p-5">
       <button
         type="button"
         onClick={() => setIsCollapsed(!isCollapsed)}
         className="flex w-full items-center justify-between gap-3 px-1"
       >
         <div className="flex items-center gap-3">
-          <div className="rounded-xl bg-amber-500/10 p-2.5 text-amber-500">
-            <Zap size={18} />
+          <div className="rounded-xl bg-amber-500/10 p-2 text-amber-500">
+            <Zap size={16} />
           </div>
           <div className="text-left">
-            <h3 className="text-[11px] font-black uppercase tracking-[0.14em] text-amber-600 dark:text-amber-400">Coach Check-In</h3>
-            <p className="mt-1 text-[10px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Guide today&apos;s plan before you lift</p>
+            <h3 className="text-[10px] font-black uppercase tracking-[0.14em] text-amber-600 dark:text-amber-400">Coach Check-In</h3>
+            <p className="mt-0.5 text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">Guide today&apos;s plan before you lift</p>
           </div>
         </div>
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl text-theme-text-tertiary transition-all hover:bg-theme-bg-tertiary active:scale-90">
-          {isCollapsed ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg text-theme-text-tertiary transition-all hover:bg-theme-bg-tertiary active:scale-90">
+          {isCollapsed ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
         </div>
       </button>
 
@@ -141,7 +141,7 @@ export function CoachCheckInSection({
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="grid grid-cols-1 gap-5 pt-6">
+            <div className="grid grid-cols-1 gap-4 pt-5">
               <CoachChoiceGroup
                 label="Recovery"
                 value={checkIn.recovery}
@@ -172,7 +172,7 @@ export function CoachCheckInSection({
                 ]}
                 onChange={(value) => onChange({ ...checkIn, bodyStatus: value as PreSessionCheckIn['bodyStatus'] })}
               />
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <CoachChoiceGroup
                   label="Goal Today"
                   value={checkIn.goal}
@@ -463,7 +463,7 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                       </m.div>
                     )}
                   </div>
-                  <div className="relative">
+                  <div className="relative flex items-center">
                     <input
                       type="text"
                       inputMode="decimal"
@@ -476,9 +476,10 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                     />
                     <button
                       onClick={() => onRemoveSet(exerciseIndex, setIndex)}
-                      className="absolute -right-1.5 -top-1.5 rounded-full bg-red-500 p-0.5 text-white opacity-0 transition-all group-hover/set:opacity-100 active:scale-110"
+                      className="absolute right-1 flex h-7 w-7 items-center justify-center rounded-full bg-red-500 text-white shadow-sm transition-all active:scale-90"
+                      aria-label="Delete set"
                     >
-                      <Trash2 size={8} />
+                      <XCircle size={14} />
                     </button>
                   </div>
                 </m.div>
@@ -535,63 +536,98 @@ export function SessionWrapUpSection({
   onDebriefChange: (value: PostSessionDebrief) => void;
   onNotesChange: (value: string) => void;
 }) {
-  return (
-    <div className="space-y-6 rounded-2xl border border-white/5 bg-theme-bg-secondary p-6">
-      <CoachChoiceGroup
-        label="How It Played Out"
-        value={debrief.sessionDifficulty}
-        options={[
-          { value: 'undershot', label: 'Undershot', description: 'You left a lot in reserve.' },
-          { value: 'on_plan', label: 'On Plan', description: 'The session matched the intended difficulty.' },
-          { value: 'pushed_hard', label: 'Pushed', description: 'The session demanded a lot from you.' },
-        ]}
-        onChange={(value) => onDebriefChange({ ...debrief, sessionDifficulty: value as PostSessionDebrief['sessionDifficulty'] })}
-      />
-      <CoachChoiceGroup
-        label="Plan Fit"
-        value={debrief.planFit}
-        options={[
-          { value: 'too_easy', label: 'Too Easy', description: 'The plan can probably progress faster next time.' },
-          { value: 'about_right', label: 'Right', description: 'This matched the day well.' },
-          { value: 'too_much', label: 'Too Much', description: 'The target overshot what was realistic today.' },
-        ]}
-        onChange={(value) => onDebriefChange({ ...debrief, planFit: value as PostSessionDebrief['planFit'] })}
-      />
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <CoachChoiceGroup
-          label="Body Response"
-          value={debrief.bodyResponse}
-          options={[
-            { value: 'felt_good', label: 'Good', description: 'The session felt productive and stable.' },
-            { value: 'fatigued', label: 'Fatigued', description: 'Fatigue built up more than expected.' },
-            { value: 'pain_or_strain', label: 'Pain', description: 'Something felt irritated or strained.' },
-          ]}
-          onChange={(value) => onDebriefChange({ ...debrief, bodyResponse: value as PostSessionDebrief['bodyResponse'] })}
-        />
-        <CoachChoiceGroup
-          label="Next Session"
-          value={debrief.confidenceNextTime}
-          options={[
-            { value: 'progress', label: 'Progress', description: 'You feel ready to move this lift forward.' },
-            { value: 'repeat', label: 'Repeat', description: 'Run a similar target again next time.' },
-            { value: 'swap', label: 'Swap', description: 'A variation change may be smarter.' },
-          ]}
-          onChange={(value) => onDebriefChange({ ...debrief, confidenceNextTime: value as PostSessionDebrief['confidenceNextTime'] })}
-        />
-      </div>
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
-      <div className="space-y-4">
-        <label className="flex items-center gap-2 px-1 text-[10px] font-black uppercase tracking-[0.3em] text-theme-text-tertiary">
-          <Info size={12} className="text-blue-500" /> Coach Notes
-        </label>
-        <textarea
-          placeholder="Anything the coach should remember about this session?"
-          className="h-36 w-full resize-none rounded-2xl border border-white/5 bg-theme-bg-tertiary p-5 text-sm font-medium text-theme-text-primary shadow-inner outline-none transition-all focus:border-blue-500/30 focus:ring-4 focus:ring-blue-500/10"
-          value={notes}
-          onChange={(e) => onNotesChange(e.target.value)}
-        />
-      </div>
-    </div>
+  return (
+    <section className="glass rounded-2xl border border-white/10 p-4 sm:p-5">
+      <button
+        type="button"
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        className="flex w-full items-center justify-between gap-3 px-1"
+      >
+        <div className="flex items-center gap-3">
+          <div className="rounded-xl bg-blue-500/10 p-2 text-blue-500">
+            <Info size={16} />
+          </div>
+          <div className="text-left">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.14em] text-theme-accent dark:text-blue-400">Coach Debrief</h3>
+            <p className="mt-0.5 text-[9px] font-black uppercase tracking-[0.14em] text-theme-text-tertiary">How It Played Out</p>
+          </div>
+        </div>
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg text-theme-text-tertiary transition-all hover:bg-theme-bg-tertiary active:scale-90">
+          {isCollapsed ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
+        </div>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {!isCollapsed && (
+          <m.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            <div className="space-y-4 pt-5">
+              <CoachChoiceGroupCompact
+                label="How It Played Out"
+                value={debrief.sessionDifficulty}
+                options={[
+                  { value: 'undershot', label: 'Undershot', description: 'You left a lot in reserve.' },
+                  { value: 'on_plan', label: 'On Plan', description: 'The session matched the intended difficulty.' },
+                  { value: 'pushed_hard', label: 'Pushed', description: 'The session demanded a lot from you.' },
+                ]}
+                onChange={(value) => onDebriefChange({ ...debrief, sessionDifficulty: value as PostSessionDebrief['sessionDifficulty'] })}
+              />
+              <CoachChoiceGroupCompact
+                label="Plan Fit"
+                value={debrief.planFit}
+                options={[
+                  { value: 'too_easy', label: 'Too Easy', description: 'The plan can probably progress faster next time.' },
+                  { value: 'about_right', label: 'Right', description: 'This matched the day well.' },
+                  { value: 'too_much', label: 'Too Much', description: 'The target overshot what was realistic today.' },
+                ]}
+                onChange={(value) => onDebriefChange({ ...debrief, planFit: value as PostSessionDebrief['planFit'] })}
+              />
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <CoachChoiceGroupCompact
+                  label="Body Response"
+                  value={debrief.bodyResponse}
+                  options={[
+                    { value: 'felt_good', label: 'Good', description: 'The session felt productive and stable.' },
+                    { value: 'fatigued', label: 'Fatigued', description: 'Fatigue built up more than expected.' },
+                    { value: 'pain_or_strain', label: 'Pain', description: 'Something feels irritated or strained.' },
+                  ]}
+                  onChange={(value) => onDebriefChange({ ...debrief, bodyResponse: value as PostSessionDebrief['bodyResponse'] })}
+                />
+                <CoachChoiceGroupCompact
+                  label="Next Session"
+                  value={debrief.confidenceNextTime}
+                  options={[
+                    { value: 'progress', label: 'Progress', description: 'You feel ready to move this lift forward.' },
+                    { value: 'repeat', label: 'Repeat', description: 'Run a similar target again next time.' },
+                    { value: 'swap', label: 'Swap', description: 'A variation change may be smarter.' },
+                  ]}
+                  onChange={(value) => onDebriefChange({ ...debrief, confidenceNextTime: value as PostSessionDebrief['confidenceNextTime'] })}
+                />
+              </div>
+
+              <div className="space-y-3">
+                <label className="flex items-center gap-2 px-1 text-[9px] font-black uppercase tracking-[0.3em] text-theme-text-tertiary">
+                  <Info size={11} className="text-blue-500" /> Coach Notes
+                </label>
+                <textarea
+                  placeholder="Anything the coach should remember about this session?"
+                  className="h-28 w-full resize-none rounded-xl border border-white/5 bg-theme-bg-tertiary p-4 text-xs font-medium text-theme-text-primary shadow-inner outline-none transition-all focus:border-blue-500/30 focus:ring-4 focus:ring-blue-500/10"
+                  value={notes}
+                  onChange={(e) => onNotesChange(e.target.value)}
+                />
+              </div>
+            </div>
+          </m.div>
+        )}
+      </AnimatePresence>
+    </section>
   );
 }
 
@@ -633,6 +669,54 @@ function CoachChoiceGroup({
                 {option.label}
               </p>
               <p className="mt-2 text-xs font-medium leading-relaxed text-theme-text-tertiary">
+                {option.description}
+              </p>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function CoachChoiceGroupCompact({
+  label,
+  value,
+  options,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  options: { value: string; label: string; description: string }[];
+  onChange: (value: string) => void;
+}) {
+  return (
+    <div className="space-y-2">
+      <div className="px-1">
+        <p className="text-[9px] font-black uppercase tracking-[0.18em] text-theme-text-tertiary">{label}</p>
+      </div>
+      <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-3">
+        {options.map((option) => {
+          const isActive = value === option.value;
+          return (
+            <button
+              key={option.value}
+              type="button"
+              onClick={() => onChange(option.value)}
+              className={cn(
+                'rounded-xl border p-3 text-left transition-all active:scale-[0.98]',
+                isActive
+                  ? 'border-blue-500/30 bg-blue-500/10 shadow-[0_0_0_1px_rgba(59,130,246,0.15)]'
+                  : 'border-white/5 bg-theme-bg-tertiary hover:border-blue-500/15'
+              )}
+            >
+              <p className={cn(
+                'text-[10px] font-black uppercase tracking-[0.14em]',
+                isActive ? 'text-theme-accent dark:text-blue-400' : 'text-theme-text-primary'
+              )}>
+                {option.label}
+              </p>
+              <p className="mt-1 text-[10px] font-medium leading-relaxed text-theme-text-tertiary">
                 {option.description}
               </p>
             </button>
