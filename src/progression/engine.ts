@@ -86,9 +86,9 @@ export async function calculateNextSuggestion(
     const genericCaps = VOLUME_CAPS_BY_LEVEL[experienceLevel] || VOLUME_CAPS_BY_LEVEL.intermediate;
     const muscleLandmarks = MUSCLE_LANDMARKS[primaryMuscle as keyof typeof MUSCLE_LANDMARKS] || genericCaps;
     const caps = {
-      mev: Math.round(muscleLandmarks.mev * config.volumeEase),
-      mav: Math.round(muscleLandmarks.mav * config.volumeEase),
-      mrv: Math.round(muscleLandmarks.mrv * config.volumeEase),
+      mev: Math.round(muscleLandmarks.mev / config.volumeEase),
+      mav: Math.round(muscleLandmarks.mav / config.volumeEase),
+      mrv: Math.round(muscleLandmarks.mrv / config.volumeEase),
     };
 
     const userSettings = await getUserSettings();
