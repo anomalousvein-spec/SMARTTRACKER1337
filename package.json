@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "node scripts/check-progression-taxonomy.mjs && tsc && vite build",
     "check:progression-taxonomy": "node scripts/check-progression-taxonomy.mjs",
-    "lint": "eslint .",
+    "lint": "eslint --ignore-pattern 'scripts/*.mjs' --ignore-pattern 'eslint.config.js' .",
     "preview": "vite preview",
     "test": "vitest"
   },
