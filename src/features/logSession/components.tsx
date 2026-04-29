@@ -353,6 +353,23 @@ export const ExerciseCard = React.memo(function ExerciseCard({
           className="glass relative overflow-hidden rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent p-4"
         >
           <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-blue-500/5 blur-2xl" />
+
+          {/* Training Targets */}
+          <div className="mb-4 grid grid-cols-2 gap-3">
+            <div className="rounded-xl border border-blue-500/20 bg-blue-500/10 p-3 text-center shadow-inner">
+              <div className="text-[10px] font-black uppercase tracking-[0.14em] text-theme-accent dark:text-blue-400">Target Load</div>
+              <div className="mt-1 text-2xl font-black text-theme-accent dark:text-blue-400">
+                {suggestion.suggestedWeight} <span className="text-xs font-bold text-theme-text-tertiary">{unit}</span>
+              </div>
+            </div>
+            <div className="rounded-xl border border-blue-500/20 bg-blue-500/10 p-3 text-center shadow-inner">
+              <div className="text-[10px] font-black uppercase tracking-[0.14em] text-theme-accent dark:text-blue-400">Target Sequence</div>
+              <div className="mt-1 text-2xl font-black text-theme-accent dark:text-blue-400">
+                {suggestion.suggestedSets} <span className="text-sm font-bold text-theme-text-tertiary">×</span> {suggestion.suggestedReps}
+              </div>
+            </div>
+          </div>
+
           <div className="mb-2 flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.2em] text-theme-accent dark:text-blue-400">
             <div className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
             {suggestion.primaryMuscle.toUpperCase()} Weekly Volume
