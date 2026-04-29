@@ -36,6 +36,7 @@ export const MUSCLE_LANDMARKS = {
   biceps:    { mev: 8,  mav: 14, mrv: 26 },
   'rear delts': { mev: 8,  mav: 16, mrv: 26 },
   'front delts': { mev: 0,  mav: 6,  mrv: 12 },
+  shoulders: { mev: 8,  mav: 12, mrv: 20 }, // Side delts (lateral raises)
   traps:     { mev: 0,  mav: 12, mrv: 26 },
 };
 

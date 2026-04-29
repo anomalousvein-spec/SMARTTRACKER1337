@@ -43,17 +43,21 @@ export async function seedExerciseLibrary() {
       { name: "Dumbbell Pullover", primaryMuscles: ["back"], secondaryMuscles: ["chest"], category: "Dumbbell", movementPattern: "Pull", difficulty: "Intermediate", isCustom: false },
       { name: "Back Extension (Machine)", primaryMuscles: ["back"], secondaryMuscles: ["hamstrings", "glutes"], category: "Machine", movementPattern: "Hinge", difficulty: "Beginner", isCustom: false },
 
-      // Shoulders
-      { name: "Overhead Press", primaryMuscles: ["shoulders"], secondaryMuscles: ["triceps"], category: "Barbell", movementPattern: "Push", difficulty: "Intermediate", isCustom: false },
+      // Shoulders - Front Delts
+      { name: "Overhead Press", primaryMuscles: ["front delts"], secondaryMuscles: ["triceps", "traps"], category: "Barbell", movementPattern: "Push", difficulty: "Intermediate", isCustom: false },
+      { name: "Machine Shoulder Press", primaryMuscles: ["front delts"], secondaryMuscles: ["triceps"], category: "Machine", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
+      { name: "Front Raise", primaryMuscles: ["front delts"], secondaryMuscles: [], category: "Dumbbell", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
+      
+      // Shoulders - Side Delts
       { name: "Lateral Raise", primaryMuscles: ["shoulders"], secondaryMuscles: [], category: "Dumbbell", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
       { name: "Cable Lateral Raise", primaryMuscles: ["shoulders"], secondaryMuscles: [], category: "Cable", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
-      { name: "Machine Shoulder Press", primaryMuscles: ["shoulders"], secondaryMuscles: ["triceps"], category: "Machine", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
-      { name: "Rear Delt Fly", primaryMuscles: ["shoulders"], secondaryMuscles: [], category: "Dumbbell", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
-      { name: "Cable Reverse Fly", primaryMuscles: ["shoulders"], secondaryMuscles: [], category: "Cable", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
-      { name: "Front Raise", primaryMuscles: ["shoulders"], secondaryMuscles: [], category: "Dumbbell", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
-      { name: "Face Pull", primaryMuscles: ["shoulders"], secondaryMuscles: ["back"], category: "Cable", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
-      { name: "Cable Face Pull", primaryMuscles: ["shoulders"], secondaryMuscles: ["back"], category: "Cable", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
-      { name: "Cable Upright Row", primaryMuscles: ["shoulders"], secondaryMuscles: [], category: "Cable", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
+      { name: "Cable Upright Row", primaryMuscles: ["shoulders"], secondaryMuscles: ["traps"], category: "Cable", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
+      
+      // Shoulders - Rear Delts
+      { name: "Rear Delt Fly", primaryMuscles: ["rear delts"], secondaryMuscles: [], category: "Dumbbell", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
+      { name: "Cable Reverse Fly", primaryMuscles: ["rear delts"], secondaryMuscles: [], category: "Cable", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
+      { name: "Face Pull", primaryMuscles: ["rear delts"], secondaryMuscles: ["back", "traps"], category: "Cable", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
+      { name: "Cable Face Pull", primaryMuscles: ["rear delts"], secondaryMuscles: ["back", "traps"], category: "Cable", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
 
       // Hamstrings
       { name: "Romanian Deadlift", primaryMuscles: ["hamstrings"], secondaryMuscles: ["glutes", "back"], category: "Barbell", movementPattern: "Hinge", difficulty: "Intermediate", isCustom: false },
