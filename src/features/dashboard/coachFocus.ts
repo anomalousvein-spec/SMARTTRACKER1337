@@ -32,29 +32,51 @@ export interface CoachFocus {
 }
 
 function buildFocusFromSuggestion(suggestion: ExerciseSuggestion): CoachFocus {
+  // Optimization: Single case-insensitive conversion
+  const reasonLower = suggestion.reason.toLowerCase();
+
+  // --- Volume Logic ---
   const volumeOverreached =
     suggestion.currentWeeklySets > suggestion.caps.mrv ||
     suggestion.projectedWeeklySets > suggestion.caps.mrv;
   const volumeNearLimit =
     suggestion.currentWeeklySets >= suggestion.caps.mav ||
     suggestion.projectedWeeklySets >= suggestion.caps.mav;
-  const isDeload = suggestion.reason.includes('Programmed deload week');
-  const isPainManaged =
-    suggestion.reason.includes('Pain or strain flagged') ||
-    suggestion.reason.includes('pain watch') ||
-    suggestion.reason.includes('variation change - keep this lift conservative');
-  const isRebuildDay =
-    suggestion.reason.includes('reduce demand and rebuild quality') ||
-    suggestion.reason.includes('less well-tolerated recently');
-  const isLightDay = suggestion.reason.includes('Light-day goal selected');
-  const isTimeCapped = suggestion.reason.includes('Short session window');
-  const isRegression = suggestion.reason.includes('Performance declining');
-  const isAggressiveProgression =
-    suggestion.reason.includes('Strong performance') ||
-    suggestion.reason.includes('Recovering fast');
 
+  // --- Recovery & Strategy Logic ---
+  const isDeload = reasonLower.includes('programmed deload week');
+
+  // Enhanced Pain Management Detection: Robust Case-Insensitive + Refined Variation Logic
+  const isPainManaged =
+    reasonLower.includes('pain or strain flagged') ||
+    reasonLower.includes('pain watch') ||
+    (reasonLower.includes('variation change') && reasonLower.includes('conservative'));
+
+  // Enhanced Readiness Detection: Flag priority + string fallback
+  const isReadinessPoor =
+    suggestion.isReadinessPoor === true ||
+    reasonLower.includes('low sleep or energy') ||
+    reasonLower.includes('low-readiness');
+
+  const isRebuildDay =
+    reasonLower.includes('reduce demand and rebuild quality') ||
+    reasonLower.includes('less well-tolerated recently');
+
+  const isLightDay = reasonLower.includes('light-day goal selected');
+  const isTimeCapped = reasonLower.includes('short session window');
+  const isRegression = reasonLower.includes('performance declining');
+
+  // Progression Signal Recovery: "Recovery trend looks strong" added
+  const isAggressiveProgression =
+    reasonLower.includes('strong performance') ||
+    reasonLower.includes('recovering fast') ||
+    reasonLower.includes('recovery trend looks strong');
+
+  // --- Priority Hierarchy Matching ---
+
+  // 1. Deload Weeks (Highest)
   if (isDeload) {
-    const hasFatigue = suggestion.reason.includes('fatigue markers present');
+    const hasFatigue = reasonLower.includes('fatigue markers present');
     return {
       kind: 'deload',
       priority: 1,
@@ -75,6 +97,7 @@ function buildFocusFromSuggestion(suggestion: ExerciseSuggestion): CoachFocus {
     };
   }
 
+  // 2. Pain Management
   if (isPainManaged) {
     return {
       kind: 'pain',
@@ -92,7 +115,8 @@ function buildFocusFromSuggestion(suggestion: ExerciseSuggestion): CoachFocus {
     };
   }
 
-  if (suggestion.isReadinessPoor) {
+  // 3. Low Readiness/Recovery
+  if (isReadinessPoor) {
     return {
       kind: 'readiness',
       priority: 3,
@@ -109,6 +133,7 @@ function buildFocusFromSuggestion(suggestion: ExerciseSuggestion): CoachFocus {
     };
   }
 
+  // 4. Rebuild Adjustments
   if (isRebuildDay) {
     return {
       kind: 'rebuild',
@@ -126,6 +151,7 @@ function buildFocusFromSuggestion(suggestion: ExerciseSuggestion): CoachFocus {
     };
   }
 
+  // 5. Light Day Goals
   if (isLightDay) {
     return {
       kind: 'light-day',
@@ -143,6 +169,7 @@ function buildFocusFromSuggestion(suggestion: ExerciseSuggestion): CoachFocus {
     };
   }
 
+  // 6. Time Constraints
   if (isTimeCapped) {
     return {
       kind: 'time-cap',
@@ -160,6 +187,7 @@ function buildFocusFromSuggestion(suggestion: ExerciseSuggestion): CoachFocus {
     };
   }
 
+  // 7. Volume Overreached
   if (volumeOverreached) {
     return {
       kind: 'overreached',
@@ -177,6 +205,7 @@ function buildFocusFromSuggestion(suggestion: ExerciseSuggestion): CoachFocus {
     };
   }
 
+  // 8. Volume Near Limit
   if (volumeNearLimit) {
     return {
       kind: 'near-limit',
@@ -194,6 +223,7 @@ function buildFocusFromSuggestion(suggestion: ExerciseSuggestion): CoachFocus {
     };
   }
 
+  // 9. Plateau Detection
   if (suggestion.plateauFlag) {
     return {
       kind: 'plateau',
@@ -211,6 +241,7 @@ function buildFocusFromSuggestion(suggestion: ExerciseSuggestion): CoachFocus {
     };
   }
 
+  // 10. Regression/Reset Needed
   if (isRegression) {
     return {
       kind: 'regression',
@@ -228,6 +259,7 @@ function buildFocusFromSuggestion(suggestion: ExerciseSuggestion): CoachFocus {
     };
   }
 
+  // 11. Aggressive Progression
   if (isAggressiveProgression) {
     return {
       kind: 'progression',
@@ -245,6 +277,7 @@ function buildFocusFromSuggestion(suggestion: ExerciseSuggestion): CoachFocus {
     };
   }
 
+  // 12. Under-stimulated Volume
   if (suggestion.currentWeeklySets < suggestion.caps.mev) {
     return {
       kind: 'under-stimulated',
@@ -262,6 +295,7 @@ function buildFocusFromSuggestion(suggestion: ExerciseSuggestion): CoachFocus {
     };
   }
 
+  // 13. Default / On-Track (Lowest)
   return {
     kind: 'default',
     priority: 13,
