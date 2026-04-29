@@ -344,67 +344,67 @@ export const ExerciseCard = React.memo(function ExerciseCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      className="space-y-4"
+      className="space-y-3"
     >
       {suggestion && (
         <m.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="glass relative overflow-hidden rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent p-5"
+          className="glass relative overflow-hidden rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent p-4"
         >
           <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-blue-500/5 blur-2xl" />
-          <div className="mb-3 flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-theme-accent dark:text-blue-400">
+          <div className="mb-2 flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.2em] text-theme-accent dark:text-blue-400">
             <div className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
             {suggestion.primaryMuscle.toUpperCase()} Weekly Volume
           </div>
-          <div className="mb-4 flex flex-wrap items-end gap-3">
-            <div className="flex items-end gap-3">
-              <span className="text-4xl font-black leading-none text-theme-accent dark:text-blue-400">{suggestion.currentWeeklySets}</span>
-              <span className="pb-1 text-[10px] font-black uppercase tracking-widest text-theme-text-tertiary dark:text-theme-text-tertiary">current / {suggestion.caps.mav} MAV | {suggestion.caps.mrv} MRV</span>
+          <div className="mb-3 flex flex-wrap items-end gap-2">
+            <div className="flex items-end gap-2">
+              <span className="text-3xl font-black leading-none text-theme-accent dark:text-blue-400">{suggestion.currentWeeklySets}</span>
+              <span className="pb-0.5 text-[9px] font-black uppercase tracking-widest text-theme-text-tertiary dark:text-theme-text-tertiary">current / {suggestion.caps.mav} MAV | {suggestion.caps.mrv} MRV</span>
             </div>
-            <span className="rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.16em] text-theme-accent dark:text-blue-400">
+            <span className="rounded-full border border-blue-500/20 bg-blue-500/10 px-2.5 py-0.5 text-[8px] font-black uppercase tracking-[0.16em] text-theme-accent dark:text-blue-400">
               projected {suggestion.projectedWeeklySets}
             </span>
           </div>
-          <div className="mb-4 flex flex-wrap gap-2">
-            <span className="rounded-full border border-sky-500/20 bg-sky-500/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.16em] text-sky-700 dark:text-sky-300">
+          <div className="mb-3 flex flex-wrap gap-1.5">
+            <span className="rounded-full border border-sky-500/20 bg-sky-500/10 px-2.5 py-0.5 text-[8px] font-black uppercase tracking-[0.16em] text-sky-700 dark:text-sky-300">
               Current {currentVolumeStatus}
             </span>
-            <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-300">
+            <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[8px] font-black uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-300">
               Projected {projectedVolumeStatus}
             </span>
           </div>
           {suggestion.suggestedRPE !== undefined && (
-            <div className="mb-4 inline-flex rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.16em] text-amber-700 dark:text-amber-300">
+            <div className="mb-3 inline-flex rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-0.5 text-[8px] font-black uppercase tracking-[0.16em] text-amber-700 dark:text-amber-300">
               Target RPE {suggestion.suggestedRPE.toFixed(1)}
             </div>
           )}
-          <div className="rounded-xl border border-white/20 bg-white/40 p-3 dark:bg-black/20">
-            <p className="text-xs font-bold italic leading-relaxed text-theme-text-tertiary dark:text-theme-text-tertiary">"{suggestion.reason}"</p>
+          <div className="rounded-xl border border-white/20 bg-white/40 p-2.5 dark:bg-black/20">
+            <p className="text-[11px] font-bold italic leading-relaxed text-theme-text-tertiary dark:text-theme-text-tertiary">"{suggestion.reason}"</p>
           </div>
         </m.div>
       )}
 
-      <div className="group relative space-y-6 rounded-2xl border border-white/5 bg-theme-bg-secondary p-6">
-        <div className="flex items-center justify-between gap-4">
+      <div className="group relative space-y-4 rounded-2xl border border-white/5 bg-theme-bg-secondary p-4">
+        <div className="flex items-center justify-between gap-3">
           <button onClick={() => onPickExercise(exerciseIndex)} className="flex-grow text-left group/btn">
-            <h3 className="text-xl font-black capitalize leading-tight tracking-tight text-theme-text-primary transition-colors group-hover/btn:text-blue-500">
+            <h3 className="text-lg font-black capitalize leading-tight tracking-tight text-theme-text-primary transition-colors group-hover/btn:text-blue-500">
               {exercise.exerciseName || 'Choose Movement'}
             </h3>
-            <p className="mt-1.5 flex items-center gap-1.5 text-[9px] font-black uppercase tracking-[0.2em] text-theme-text-tertiary">
-              <Search size={10} className="text-blue-500" /> Tap to swap exercise
+            <p className="mt-1 flex items-center gap-1.5 text-[8px] font-black uppercase tracking-[0.2em] text-theme-text-tertiary">
+              <Search size={9} className="text-blue-500" /> Tap to swap exercise
             </p>
           </button>
           <button
             onClick={() => onRemoveExercise(exerciseIndex)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl text-theme-text-tertiary transition-all hover:bg-red-50 hover:text-red-500 active:scale-90 dark:hover:bg-red-900/10"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-theme-text-tertiary transition-all hover:bg-red-50 hover:text-red-500 active:scale-90 dark:hover:bg-red-900/10"
           >
-            <Trash2 size={20} />
+            <Trash2 size={16} />
           </button>
         </div>
 
-        <div className="space-y-4">
-          <div className="grid grid-cols-4 gap-4 px-2 text-[9px] font-black uppercase tracking-[0.2em] text-theme-text-tertiary">
+        <div className="space-y-2.5">
+          <div className="grid grid-cols-4 gap-3 px-1 text-[8px] font-black uppercase tracking-[0.2em] text-theme-text-tertiary">
             <div className="text-center">Set</div>
             <div className="text-center text-blue-500">Load ({unit})</div>
             <div className="text-center">Reps</div>
@@ -424,16 +424,16 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   key={`set-${exerciseIndex}-${setIndex}`}
-                  className="group/set relative grid grid-cols-4 items-center gap-4"
+                  className="group/set relative grid grid-cols-4 items-center gap-3"
                 >
-                  <div className="flex h-14 w-full items-center justify-center rounded-2xl bg-theme-bg-tertiary text-xs font-black text-theme-text-tertiary shadow-inner dark:text-theme-text-tertiary">
+                  <div className="flex h-10 w-full items-center justify-center rounded-xl bg-theme-bg-tertiary text-[11px] font-black text-theme-text-tertiary shadow-inner dark:text-theme-text-tertiary">
                     {setIndex + 1}
                   </div>
                   <div className="relative">
                     <input
                       type="text"
                       inputMode="decimal"
-                      className="h-14 w-full rounded-2xl border border-white/5 bg-theme-bg-tertiary text-center font-black text-theme-text-primary outline-none transition-all focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10"
+                      className="h-10 w-full rounded-xl border border-white/5 bg-theme-bg-tertiary text-center font-black text-theme-text-primary outline-none transition-all focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10"
                       value={set.weight}
                       placeholder="0"
                       onFocus={(e) => e.target.select()}
@@ -441,7 +441,7 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                       onChange={(e) => onUpdateSet(exerciseIndex, setIndex, 'weight', e.target.value)}
                     />
                     {isNewBestWeight && (
-                      <m.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute -right-1.5 -top-1.5 z-10 rounded-lg bg-yellow-400 px-1.5 py-0.5 text-[6px] font-black text-yellow-900">
+                      <m.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute -right-1 -top-1 z-10 rounded-md bg-yellow-400 px-1 py-0.5 text-[5px] font-black text-yellow-900">
                         PB
                       </m.div>
                     )}
@@ -450,7 +450,7 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                     <input
                       type="text"
                       inputMode="numeric"
-                      className="h-14 w-full rounded-2xl border border-white/5 bg-theme-bg-tertiary text-center font-black text-theme-text-primary outline-none transition-all focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10"
+                      className="h-10 w-full rounded-xl border border-white/5 bg-theme-bg-tertiary text-center font-black text-theme-text-primary outline-none transition-all focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10"
                       value={set.reps}
                       placeholder="0"
                       onFocus={(e) => e.target.select()}
@@ -458,7 +458,7 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                       onChange={(e) => onUpdateSet(exerciseIndex, setIndex, 'reps', e.target.value)}
                     />
                     {isNewBest1RM && !isNewBestWeight && (
-                      <m.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute -right-1.5 -top-1.5 z-10 rounded-lg bg-blue-400 px-1.5 py-0.5 text-[6px] font-black text-white">
+                      <m.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute -right-1 -top-1 z-10 rounded-md bg-blue-400 px-1 py-0.5 text-[5px] font-black text-white">
                         PB
                       </m.div>
                     )}
@@ -467,7 +467,7 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                     <input
                       type="text"
                       inputMode="decimal"
-                      className="h-14 w-full rounded-2xl border border-white/5 bg-theme-bg-tertiary text-center font-black text-theme-text-primary outline-none transition-all focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10"
+                      className="h-10 w-full rounded-xl border border-white/5 bg-theme-bg-tertiary text-center font-black text-theme-text-primary outline-none transition-all focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10"
                       value={set.rpe}
                       placeholder="8"
                       onFocus={(e) => e.target.select()}
@@ -476,9 +476,9 @@ export const ExerciseCard = React.memo(function ExerciseCard({
                     />
                     <button
                       onClick={() => onRemoveSet(exerciseIndex, setIndex)}
-                      className="absolute -right-2 -top-2 rounded-full bg-red-500 p-1 text-white opacity-0 transition-all group-hover/set:opacity-100 active:scale-110"
+                      className="absolute -right-1.5 -top-1.5 rounded-full bg-red-500 p-0.5 text-white opacity-0 transition-all group-hover/set:opacity-100 active:scale-110"
                     >
-                      <Trash2 size={10} />
+                      <Trash2 size={8} />
                     </button>
                   </div>
                 </m.div>
@@ -486,10 +486,10 @@ export const ExerciseCard = React.memo(function ExerciseCard({
             })}
           </AnimatePresence>
 
-          <div className="grid grid-cols-3 gap-2 pt-2">
-            <button onClick={() => onAddWarmupSet(exerciseIndex)} className="flex items-center justify-center gap-1.5 rounded-xl border border-white/5 bg-theme-bg-tertiary/50 py-2 text-[8px] font-black uppercase tracking-widest text-theme-text-tertiary transition-all hover:text-blue-500 active:scale-95"><Plus size={10} /> Warmup</button>
-            <button onClick={() => onAddWorkSet(exerciseIndex)} className="flex items-center justify-center gap-1.5 rounded-xl border border-white/5 bg-theme-bg-tertiary/50 py-2 text-[8px] font-black uppercase tracking-widest text-theme-text-tertiary transition-all hover:text-blue-500 active:scale-95"><Plus size={10} /> Work Set</button>
-            <button onClick={() => onCopyLastSet(exerciseIndex)} className="flex items-center justify-center gap-1.5 rounded-xl border border-white/5 bg-theme-bg-tertiary/50 py-2 text-[8px] font-black uppercase tracking-widest text-theme-text-tertiary transition-all hover:text-blue-500 active:scale-95"><Copy size={10} /> Copy</button>
+          <div className="grid grid-cols-3 gap-1.5 pt-1">
+            <button onClick={() => onAddWarmupSet(exerciseIndex)} className="flex items-center justify-center gap-1 rounded-lg border border-white/5 bg-theme-bg-tertiary/50 py-1.5 text-[7px] font-black uppercase tracking-widest text-theme-text-tertiary transition-all hover:text-blue-500 active:scale-95"><Plus size={9} /> Warmup</button>
+            <button onClick={() => onAddWorkSet(exerciseIndex)} className="flex items-center justify-center gap-1 rounded-lg border border-white/5 bg-theme-bg-tertiary/50 py-1.5 text-[7px] font-black uppercase tracking-widest text-theme-text-tertiary transition-all hover:text-blue-500 active:scale-95"><Plus size={9} /> Work Set</button>
+            <button onClick={() => onCopyLastSet(exerciseIndex)} className="flex items-center justify-center gap-1 rounded-lg border border-white/5 bg-theme-bg-tertiary/50 py-1.5 text-[7px] font-black uppercase tracking-widest text-theme-text-tertiary transition-all hover:text-blue-500 active:scale-95"><Copy size={9} /> Copy</button>
           </div>
         </div>
       </div>
