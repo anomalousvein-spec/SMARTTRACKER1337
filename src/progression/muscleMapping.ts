@@ -16,7 +16,7 @@ export const MUSCLE_MAPPING: Record<string, { primary: string; secondary?: strin
   'machine chest press': { primary: 'chest', secondary: ['triceps'] },
   'chest fly': { primary: 'chest', secondary: ['shoulders'] },
   'cable fly': { primary: 'chest', secondary: ['shoulders'] },
-  'dumbbell pullover': { primary: 'chest', secondary: ['back', 'lats'] },
+  'assisted dip': { primary: 'chest', secondary: ['triceps', 'shoulders'] },
 
   // Quads
   'squat': { primary: 'quads', secondary: ['glutes', 'hamstrings'] },
@@ -24,7 +24,6 @@ export const MUSCLE_MAPPING: Record<string, { primary: string; secondary?: strin
   'smith machine squat': { primary: 'quads', secondary: ['glutes', 'hamstrings'] },
   'leg extension': { primary: 'quads' },
   'leg press': { primary: 'quads', secondary: ['glutes', 'hamstrings'] },
-  'calf press on leg press': { primary: 'quads', secondary: ['calves'] },
   'lunges': { primary: 'quads', secondary: ['glutes', 'hamstrings'] },
   'hack squat': { primary: 'quads', secondary: ['glutes', 'hamstrings'] },
 
@@ -35,12 +34,13 @@ export const MUSCLE_MAPPING: Record<string, { primary: string; secondary?: strin
   'pull up': { primary: 'back', secondary: ['biceps'] },
   'assisted pull-up': { primary: 'back', secondary: ['biceps'] },
   'lat pulldown': { primary: 'back', secondary: ['biceps'] },
+  'lat pulldown (machine)': { primary: 'back', secondary: ['biceps'] },
   'seated cable row': { primary: 'back', secondary: ['biceps'] },
   'dumbbell row': { primary: 'back', secondary: ['biceps'] },
   't-bar row': { primary: 'back', secondary: ['biceps'] },
   'back extension': { primary: 'back', secondary: ['hamstrings', 'glutes'] },
-  'hyperextension': { primary: 'back', secondary: ['hamstrings', 'glutes'] },
-  'smith machine good morning': { primary: 'back', secondary: ['hamstrings', 'glutes'] },
+  'back extension (machine)': { primary: 'back', secondary: ['hamstrings', 'glutes'] },
+  'dumbbell pullover': { primary: 'back', secondary: ['chest'] },
 
   // Shoulders (Consolidated key for MRV matching)
   'overhead press': { primary: 'shoulders', secondary: ['triceps'] },
@@ -60,10 +60,12 @@ export const MUSCLE_MAPPING: Record<string, { primary: string; secondary?: strin
   'leg curl': { primary: 'hamstrings' },
   'seated leg curl': { primary: 'hamstrings' },
   'glute ham raise': { primary: 'hamstrings', secondary: ['glutes'] },
+  'smith machine good morning': { primary: 'hamstrings', secondary: ['back', 'glutes'] },
 
   // Arms
   'bicep curl': { primary: 'biceps' },
   'dumbbell curl': { primary: 'biceps' },
+  'dumbbell curl (flat bench)': { primary: 'biceps' },
   'hammer curl': { primary: 'biceps' },
   'barbell curl': { primary: 'biceps' },
   'preacher curl': { primary: 'biceps' },
@@ -72,14 +74,13 @@ export const MUSCLE_MAPPING: Record<string, { primary: string; secondary?: strin
   'skull crusher': { primary: 'triceps' },
   'smith machine skullcrusher': { primary: 'triceps' },
   'dips': { primary: 'triceps', secondary: ['chest', 'shoulders'] },
-  'assisted dip': { primary: 'triceps', secondary: ['chest', 'shoulders'] },
   'tricep dip machine': { primary: 'triceps', secondary: ['chest', 'shoulders'] },
   'close grip bench press': { primary: 'triceps', secondary: ['chest', 'shoulders'] },
 
   // Core
   'plank': { primary: 'core' },
   'hanging leg raise': { primary: 'core' },
-  "captain's chair leg raise": { primary: 'core' },
+  'captain’s chair leg raise': { primary: 'core' },
   'cable crunch': { primary: 'core' },
   'ab wheel rollout': { primary: 'core' },
   'torso twist machine': { primary: 'core' },
@@ -88,10 +89,12 @@ export const MUSCLE_MAPPING: Record<string, { primary: string; secondary?: strin
   'standing calf raise': { primary: 'calves' },
   'seated calf raise': { primary: 'calves' },
   'calf press machine': { primary: 'calves' },
+  'calf press on leg press': { primary: 'calves', secondary: ['quads'] },
 
   // Glutes
   'hip thrust': { primary: 'glutes', secondary: ['hamstrings'] },
   'glute bridge': { primary: 'glutes', secondary: ['hamstrings'] },
+  'hyperextension': { primary: 'glutes', secondary: ['back', 'hamstrings'] },
 };
 
 import { normalizeExerciseName } from '../utils/normalization';
