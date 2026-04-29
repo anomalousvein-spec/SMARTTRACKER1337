@@ -12,62 +12,86 @@ export async function seedExerciseLibrary() {
       // Chest
       { name: "Barbell Bench Press", primaryMuscles: ["chest"], secondaryMuscles: ["triceps", "shoulders"], category: "Barbell", movementPattern: "Push", difficulty: "Intermediate", isCustom: false },
       { name: "Incline Dumbbell Press", primaryMuscles: ["chest"], secondaryMuscles: ["shoulders", "triceps"], category: "Dumbbell", movementPattern: "Push", difficulty: "Intermediate", isCustom: false },
+      { name: "Dumbbell Bench Press", primaryMuscles: ["chest"], secondaryMuscles: ["triceps", "shoulders"], category: "Dumbbell", movementPattern: "Push", difficulty: "Intermediate", isCustom: false },
       { name: "Machine Chest Press", primaryMuscles: ["chest"], secondaryMuscles: ["triceps"], category: "Machine", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
+      { name: "Incline Smith Machine Press", primaryMuscles: ["chest"], secondaryMuscles: ["triceps", "shoulders"], category: "Machine", movementPattern: "Push", difficulty: "Intermediate", isCustom: false },
+      { name: "Flat Smith Machine Press", primaryMuscles: ["chest"], secondaryMuscles: ["triceps", "shoulders"], category: "Machine", movementPattern: "Push", difficulty: "Intermediate", isCustom: false },
+      { name: "Assisted Dip", primaryMuscles: ["chest"], secondaryMuscles: ["triceps", "shoulders"], category: "Machine", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
       { name: "Push Up", primaryMuscles: ["chest"], secondaryMuscles: ["triceps", "shoulders"], category: "Bodyweight", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
       { name: "Chest Fly", primaryMuscles: ["chest"], secondaryMuscles: ["shoulders"], category: "Dumbbell", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
       { name: "Cable Fly", primaryMuscles: ["chest"], secondaryMuscles: ["shoulders"], category: "Cable", movementPattern: "Push", difficulty: "Intermediate", isCustom: false },
 
-      // Quads
+      // Quads / Legs
       { name: "Barbell Squat", primaryMuscles: ["quads"], secondaryMuscles: ["glutes", "hamstrings"], category: "Barbell", movementPattern: "Squat", difficulty: "Intermediate", isCustom: false },
       { name: "Leg Press", primaryMuscles: ["quads"], secondaryMuscles: ["glutes", "hamstrings"], category: "Machine", movementPattern: "Squat", difficulty: "Beginner", isCustom: false },
       { name: "Leg Extension", primaryMuscles: ["quads"], secondaryMuscles: [], category: "Machine", movementPattern: "Squat", difficulty: "Beginner", isCustom: false },
       { name: "Lunges", primaryMuscles: ["quads"], secondaryMuscles: ["glutes", "hamstrings"], category: "Dumbbell", movementPattern: "Squat", difficulty: "Beginner", isCustom: false },
       { name: "Hack Squat", primaryMuscles: ["quads"], secondaryMuscles: ["glutes", "hamstrings"], category: "Machine", movementPattern: "Squat", difficulty: "Intermediate", isCustom: false },
+      { name: "Smith Machine Squat", primaryMuscles: ["quads"], secondaryMuscles: ["glutes", "hamstrings"], category: "Machine", movementPattern: "Squat", difficulty: "Intermediate", isCustom: false },
 
       // Back
       { name: "Deadlift", primaryMuscles: ["back"], secondaryMuscles: ["hamstrings", "glutes"], category: "Barbell", movementPattern: "Hinge", difficulty: "Advanced", isCustom: false },
       { name: "Barbell Row", primaryMuscles: ["back"], secondaryMuscles: ["biceps", "shoulders"], category: "Barbell", movementPattern: "Pull", difficulty: "Intermediate", isCustom: false },
       { name: "Pull Up", primaryMuscles: ["back"], secondaryMuscles: ["biceps"], category: "Bodyweight", movementPattern: "Pull", difficulty: "Intermediate", isCustom: false },
+      { name: "Assisted Pull-up", primaryMuscles: ["back"], secondaryMuscles: ["biceps"], category: "Machine", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
       { name: "Lat Pulldown", primaryMuscles: ["back"], secondaryMuscles: ["biceps"], category: "Machine", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
       { name: "Seated Cable Row", primaryMuscles: ["back"], secondaryMuscles: ["biceps"], category: "Cable", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
+      { name: "Machine Row", primaryMuscles: ["back"], secondaryMuscles: ["biceps"], category: "Machine", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
       { name: "Dumbbell Row", primaryMuscles: ["back"], secondaryMuscles: ["biceps"], category: "Dumbbell", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
       { name: "T-Bar Row", primaryMuscles: ["back"], secondaryMuscles: ["biceps"], category: "Barbell", movementPattern: "Pull", difficulty: "Intermediate", isCustom: false },
+      { name: "Dumbbell Pullover", primaryMuscles: ["back"], secondaryMuscles: ["lats", "chest"], category: "Dumbbell", movementPattern: "Pull", difficulty: "Intermediate", isCustom: false },
+      { name: "Back Extension", primaryMuscles: ["back"], secondaryMuscles: ["core", "glutes"], category: "Machine", movementPattern: "Hinge", difficulty: "Beginner", isCustom: false },
+      { name: "Hyperextension", primaryMuscles: ["glutes"], secondaryMuscles: ["hamstrings", "back"], category: "Machine", movementPattern: "Hinge", difficulty: "Beginner", isCustom: false },
 
       // Shoulders
       { name: "Overhead Press", primaryMuscles: ["shoulders"], secondaryMuscles: ["triceps"], category: "Barbell", movementPattern: "Push", difficulty: "Intermediate", isCustom: false },
       { name: "Lateral Raise", primaryMuscles: ["shoulders"], secondaryMuscles: [], category: "Dumbbell", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
+      { name: "Cable Lateral Raise", primaryMuscles: ["shoulders"], secondaryMuscles: [], category: "Cable", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
+      { name: "Cable Upright Row", primaryMuscles: ["shoulders"], secondaryMuscles: ["traps"], category: "Cable", movementPattern: "Pull", difficulty: "Intermediate", isCustom: false },
       { name: "Machine Shoulder Press", primaryMuscles: ["shoulders"], secondaryMuscles: ["triceps"], category: "Machine", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
       { name: "Rear Delt Fly", primaryMuscles: ["shoulders"], secondaryMuscles: [], category: "Dumbbell", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
+      { name: "Cable Reverse Fly", primaryMuscles: ["shoulders"], secondaryMuscles: [], category: "Cable", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
       { name: "Front Raise", primaryMuscles: ["shoulders"], secondaryMuscles: [], category: "Dumbbell", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
       { name: "Face Pull", primaryMuscles: ["shoulders"], secondaryMuscles: ["back"], category: "Cable", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
+      { name: "Cable Face Pull", primaryMuscles: ["shoulders"], secondaryMuscles: ["back"], category: "Cable", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
 
       // Hamstrings
       { name: "Romanian Deadlift", primaryMuscles: ["hamstrings"], secondaryMuscles: ["glutes", "back"], category: "Barbell", movementPattern: "Hinge", difficulty: "Intermediate", isCustom: false },
+      { name: "Dumbbell Romanian Deadlift", primaryMuscles: ["hamstrings"], secondaryMuscles: ["glutes", "back"], category: "Dumbbell", movementPattern: "Hinge", difficulty: "Intermediate", isCustom: false },
       { name: "Leg Curl", primaryMuscles: ["hamstrings"], secondaryMuscles: [], category: "Machine", movementPattern: "Hinge", difficulty: "Beginner", isCustom: false },
       { name: "Seated Leg Curl", primaryMuscles: ["hamstrings"], secondaryMuscles: [], category: "Machine", movementPattern: "Hinge", difficulty: "Beginner", isCustom: false },
       { name: "Glute Ham Raise", primaryMuscles: ["hamstrings"], secondaryMuscles: ["glutes"], category: "Other", movementPattern: "Hinge", difficulty: "Advanced", isCustom: false },
+      { name: "Smith Machine Good Morning", primaryMuscles: ["hamstrings"], secondaryMuscles: ["glutes", "back"], category: "Machine", movementPattern: "Hinge", difficulty: "Intermediate", isCustom: false },
 
       // Biceps
       { name: "Bicep Curl", primaryMuscles: ["biceps"], secondaryMuscles: [], category: "Dumbbell", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
+      { name: "Dumbbell Curl", primaryMuscles: ["biceps"], secondaryMuscles: [], category: "Dumbbell", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
       { name: "Hammer Curl", primaryMuscles: ["biceps"], secondaryMuscles: [], category: "Dumbbell", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
       { name: "Barbell Curl", primaryMuscles: ["biceps"], secondaryMuscles: [], category: "Barbell", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
       { name: "Preacher Curl", primaryMuscles: ["biceps"], secondaryMuscles: [], category: "Machine", movementPattern: "Pull", difficulty: "Beginner", isCustom: false },
 
       // Triceps
       { name: "Tricep Extension", primaryMuscles: ["triceps"], secondaryMuscles: [], category: "Cable", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
+      { name: "Tricep Extension Machine", primaryMuscles: ["triceps"], secondaryMuscles: [], category: "Machine", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
       { name: "Skull Crusher", primaryMuscles: ["triceps"], secondaryMuscles: [], category: "Barbell", movementPattern: "Push", difficulty: "Intermediate", isCustom: false },
+      { name: "Smith Machine Skullcrusher", primaryMuscles: ["triceps"], secondaryMuscles: [], category: "Machine", movementPattern: "Push", difficulty: "Intermediate", isCustom: false },
       { name: "Dips", primaryMuscles: ["triceps"], secondaryMuscles: ["chest", "shoulders"], category: "Bodyweight", movementPattern: "Push", difficulty: "Intermediate", isCustom: false },
+      { name: "Tricep Dip Machine", primaryMuscles: ["triceps"], secondaryMuscles: ["chest", "shoulders"], category: "Machine", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
       { name: "Close Grip Bench Press", primaryMuscles: ["triceps"], secondaryMuscles: ["chest", "shoulders"], category: "Barbell", movementPattern: "Push", difficulty: "Intermediate", isCustom: false },
 
       // Core
       { name: "Plank", primaryMuscles: ["core"], secondaryMuscles: [], category: "Bodyweight", movementPattern: "Core", difficulty: "Beginner", isCustom: false },
       { name: "Hanging Leg Raise", primaryMuscles: ["core"], secondaryMuscles: [], category: "Bodyweight", movementPattern: "Core", difficulty: "Intermediate", isCustom: false },
+      { name: "Captain's Chair Leg Raise", primaryMuscles: ["core"], secondaryMuscles: [], category: "Machine", movementPattern: "Core", difficulty: "Intermediate", isCustom: false },
       { name: "Cable Crunch", primaryMuscles: ["core"], secondaryMuscles: [], category: "Cable", movementPattern: "Core", difficulty: "Beginner", isCustom: false },
       { name: "Ab Wheel Rollout", primaryMuscles: ["core"], secondaryMuscles: [], category: "Other", movementPattern: "Core", difficulty: "Advanced", isCustom: false },
+      { name: "Torso Twist Machine", primaryMuscles: ["core"], secondaryMuscles: [], category: "Machine", movementPattern: "Core", difficulty: "Beginner", isCustom: false },
 
       // Calves
       { name: "Standing Calf Raise", primaryMuscles: ["calves"], secondaryMuscles: [], category: "Machine", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
       { name: "Seated Calf Raise", primaryMuscles: ["calves"], secondaryMuscles: [], category: "Machine", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
+      { name: "Calf Press Machine", primaryMuscles: ["calves"], secondaryMuscles: [], category: "Machine", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
+      { name: "Calf Press on Leg Press", primaryMuscles: ["calves"], secondaryMuscles: [], category: "Machine", movementPattern: "Push", difficulty: "Beginner", isCustom: false },
 
       // Glutes
       { name: "Hip Thrust", primaryMuscles: ["glutes"], secondaryMuscles: ["hamstrings"], category: "Barbell", movementPattern: "Hinge", difficulty: "Intermediate", isCustom: false },
