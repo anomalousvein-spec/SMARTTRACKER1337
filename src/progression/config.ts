@@ -19,9 +19,15 @@ export const LEVEL_CONFIGS: Record<ExperienceLevel, {
 };
 
 export const SWAP_MAPPING: Record<string, string[]> = {
-  'bench press': ['machine chest press', 'incline dumbbell press'],
-  'squat': ['leg press', 'leg extension'],
-  'deadlift': ['seated leg curl', 'back extension'],
-  'overhead press': ['lateral raise', 'machine shoulder press'],
-  'barbell row': ['seated cable row', 'chest supported row'],
+  "barbell bench press": ["dumbbell bench press", "machine chest press", "hammer strength chest press", "pec deck"],
+  "dumbbell bench press": ["barbell bench press", "machine chest press", "pec deck"],
+  "incline dumbbell press": ["incline smith machine press", "dumbbell bench press"],
+  "barbell squat": ["smith machine squat", "leg press", "hack squat", "goblet squat"],
+  "lat pulldown": ["v-bar pulldown", "single arm lat pulldown", "pull up"],
+  "dumbbell row": ["barbell row", "machine row", "chest supported row", "seated cable row"],
+  "overhead press": ["dumbbell shoulder press", "smith machine shoulder press", "machine shoulder press"],
+  "lateral raise": ["cable lateral raise", "machine lateral raise"],
+  "leg curl": ["seated leg curl", "lying leg curl"],
+  "bicep curl": ["barbell curl", "cable bicep curl", "hammer curl"],
+  "tricep extension": ["cable tricep pushdown (rope)", "cable tricep pushdown (bar)", "cable overhead extension"],
 };
